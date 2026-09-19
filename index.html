@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Testing Agency — Practice tests for CBSE, NEET &amp; JEE Main/Advanced</title>
+<meta name="description" content="PDF and online practice tests for Class 10 CBSE, Class 12 CBSE, NEET (UG), JEE Main and JEE Advanced — kept fully separate. Built like the real exam.">
+<style>
+/* ============================================================
+   Master Testing Agency — design tokens
+   Visual language: the printed exam paper / admit card / OMR sheet
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --paper:      #FFFFFF;
+  --paper-alt:  #EFEFEF;
+  --ink:        #000000;
+  --ink-soft:   #4A4A4A;
+  --navy:       #000000;
+  --navy-deep:  #1A1A1A;
+  --red:        #D7263D;
+  --line:       #000000;
+  --line-soft:  #DADADA;
+  --white:      #FFFFFF;
+
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans:  'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:  'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+
+  --max: 1120px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+h1,h2,h3,h4{font-family:var(--serif);margin:0;font-weight:600;letter-spacing:-0.01em;}
+p{margin:0;}
+button{font-family:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important;}
+}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+
+/* ---------- Views (single-page router) ---------- */
+.view{display:none;}
+.view.active{display:block;}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  border-bottom:1px solid var(--line);
+  background:var(--paper);
+  position:sticky;top:0;z-index:40;
+}
+.topbar .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--serif);font-weight:700;font-size:1.15rem;
+  text-decoration:none;color:var(--ink);
+  background:none;border:none;padding:0;
+}
+.brand .mark{
+  width:30px;height:30px;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:0.68rem;font-weight:600;
+  flex-shrink:0;
+}
+.brand small{
+  display:block;font-family:var(--sans);font-weight:500;
+  font-size:0.62rem;color:var(--ink-soft);letter-spacing:0.02em;
+}
+nav.primary{display:flex;align-items:center;gap:28px;}
+nav.primary a{
+  text-decoration:none;font-size:0.92rem;color:var(--ink-soft);
+  padding:6px 0;border-bottom:1px solid transparent;
+  background:none;border-top:none;border-left:none;border-right:none;
+  font-family:inherit;cursor:pointer;
+}
+nav.primary a:hover, nav.primary a.active{color:var(--ink);border-bottom-color:var(--ink);}
+.nav-actions{display:flex;align-items:center;gap:14px;}
+.nav-toggle{display:none;background:none;border:1px solid var(--line);width:40px;height:40px;align-items:center;justify-content:center;}
+.nav-toggle span{display:block;width:18px;height:1.5px;background:var(--ink);position:relative;}
+.nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:var(--ink);}
+.nav-toggle span::before{top:-6px;} .nav-toggle span::after{top:6px;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 20px;border:1px solid var(--ink);
+  font-size:0.92rem;font-weight:600;text-decoration:none;
+  background:var(--ink);color:var(--paper);
+  transition:background .15s ease, color .15s ease, transform .1s ease;
+}
+.btn:hover{background:var(--navy-deep);border-color:var(--navy-deep);}
+.btn:active{transform:translateY(1px);}
+.btn.outline{background:transparent;color:var(--ink);}
+.btn.outline:hover{background:var(--ink);color:var(--paper);}
+.btn.red{background:var(--red);border-color:var(--red);color:var(--white);}
+.btn.red:hover{background:#A31E30;border-color:#A31E30;}
+.btn.block{width:100%;}
+.btn.small{padding:8px 14px;font-size:0.82rem;}
+.btn:disabled{opacity:0.45;cursor:not-allowed;}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* ---------- Hero: exam paper header block ---------- */
+.paper-block{
+  border:1.5px solid var(--ink);
+  background:var(--white);
+  margin:36px 0;
+}
+.paper-block .band{
+  border-bottom:1px solid var(--ink);
+  padding:14px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--mono);font-size:0.72rem;color:var(--ink-soft);
+}
+.paper-block .band .rollbox{
+  display:flex;gap:4px;
+}
+.paper-block .band .rollbox span{
+  width:20px;height:24px;border:1px solid var(--line);
+}
+.hero-main{padding:44px 40px 40px;}
+.hero-main h1{
+  font-size:clamp(2rem, 4vw, 3.1rem);
+  line-height:1.08;
+  max-width:15ch;
+}
+.hero-main .sub{
+  margin-top:18px;max-width:52ch;color:var(--ink-soft);
+  font-size:1.08rem;
+}
+.hero-actions{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;}
+.stat-row{
+  border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(3,1fr);
+}
+.stat-row .stat{
+  padding:18px 22px;border-right:1px solid var(--line);
+}
+.stat-row .stat:last-child{border-right:none;}
+.stat .num{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--navy);}
+.stat .label{font-size:0.78rem;color:var(--ink-soft);margin-top:4px;}
+
+/* ---------- Section shell ---------- */
+section{padding:56px 0;}
+.section-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;margin-bottom:30px;border-bottom:1px solid var(--line);
+  padding-bottom:16px;
+}
+.section-head h2{font-size:1.7rem;}
+.section-head .kicker{
+  font-family:var(--mono);font-size:0.74rem;color:var(--ink-soft);
+  margin-bottom:6px;
+}
+.section-head p.desc{color:var(--ink-soft);max-width:46ch;margin-top:8px;}
+
+/* ---------- Track / course cards ---------- */
+.track-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.track-card{
+  background:var(--white);padding:26px 22px;
+  text-decoration:none;color:var(--ink);
+  display:flex;flex-direction:column;gap:10px;min-height:220px;
+  transition:background .15s ease;
+  border:none;text-align:left;width:100%;font-family:inherit;cursor:pointer;
+}
+.track-card:hover{background:var(--paper-alt);}
+.track-card .tag{
+  font-family:var(--mono);font-size:0.68rem;color:var(--navy);
+  border:1px solid var(--navy);display:inline-block;padding:2px 7px;
+  width:fit-content;
+}
+.track-card h3{font-size:1.2rem;margin-top:4px;}
+.track-card p{color:var(--ink-soft);font-size:0.9rem;}
+.track-card .meta{margin-top:auto;font-size:0.82rem;color:var(--ink-soft);
+  display:flex;justify-content:space-between;border-top:1px solid var(--line-soft);
+  padding-top:10px;width:100%;}
+.track-card .meta b{color:var(--ink);font-family:var(--mono);}
+
+/* ---------- Instructions (how it works) ---------- */
+.instructions{
+  border:1px solid var(--ink);background:var(--white);
+}
+.instructions .head{
+  padding:16px 22px;border-bottom:1px solid var(--ink);
+  font-family:var(--mono);font-size:0.76rem;color:var(--ink-soft);
+}
+.instructions ol{list-style:none;margin:0;padding:0;}
+.instructions li{
+  display:flex;gap:18px;padding:20px 22px;
+  border-bottom:1px solid var(--line-soft);
+}
+.instructions li:last-child{border-bottom:none;}
+.instructions li .n{
+  font-family:var(--mono);font-weight:600;color:var(--navy);
+  flex-shrink:0;width:22px;
+}
+.instructions li .t h4{font-size:1.02rem;margin-bottom:4px;}
+.instructions li .t p{color:var(--ink-soft);font-size:0.92rem;max-width:54ch;}
+
+/* ---------- Sample question card ---------- */
+.qcard{
+  border:1px solid var(--ink);background:var(--white);
+  padding:26px 28px;
+}
+.qcard .qhead{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:0.75rem;color:var(--ink-soft);
+  margin-bottom:16px;
+}
+.qmeta{
+  display:flex;border:1px solid var(--line);margin-bottom:18px;flex-wrap:wrap;
+}
+.qmeta div{flex:1;min-width:120px;padding:10px 16px;border-right:1px solid var(--line);}
+.qmeta div:last-child{border-right:none;}
+.qmeta .lab{font-family:var(--mono);font-size:0.66rem;color:var(--ink-soft);letter-spacing:0.02em;margin-bottom:3px;}
+.qmeta .val{font-size:0.92rem;font-weight:600;}
+.qcard .qtext{font-size:1.08rem;margin-bottom:18px;}
+.qcard .opts{display:grid;gap:10px;}
+.opt{
+  display:flex;gap:12px;align-items:center;
+  border:1px solid var(--line);padding:12px 14px;
+  background:var(--paper);
+}
+.opt .letter{
+  width:24px;height:24px;border:1px solid var(--ink-soft);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:0.75rem;flex-shrink:0;
+}
+.opt.correct{border-color:var(--ink);background:var(--paper-alt);}
+.opt.correct .letter{background:var(--ink);border-color:var(--ink);color:#fff;}
+.opt.wrong{border-color:var(--red);background:#FBE7E9;}
+.opt.wrong .letter{background:var(--red);border-color:var(--red);color:#fff;}
+.opt.selected{border-color:var(--ink);background:var(--paper-alt);}
+.opt.selected .letter{background:var(--ink);border-color:var(--ink);color:#fff;}
+.opt[data-clickable]{cursor:pointer;}
+.reveal-row{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.reveal-note{font-size:0.85rem;color:var(--ink-soft);}
+
+/* ---------- Pricing ---------- */
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.price-card{background:var(--white);padding:28px;}
+.price-card .kicker{font-family:var(--mono);font-size:0.72rem;color:var(--navy);}
+.price-card h3{font-size:1.4rem;margin:8px 0 4px;}
+.price-card .amount{font-family:var(--mono);font-size:2rem;font-weight:600;margin:14px 0;}
+.price-card .amount sup{font-size:0.9rem;font-weight:500;color:var(--ink-soft);}
+.price-card ul{list-style:none;margin:0 0 20px;padding:0;font-size:0.92rem;color:var(--ink-soft);}
+.price-card li{padding:7px 0;border-top:1px solid var(--line-soft);}
+.price-card li:first-child{border-top:none;}
+
+/* ---------- Results ---------- */
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.result-card{background:var(--white);padding:24px;}
+.result-card .scoreline{
+  display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:0.78rem;color:var(--ink-soft);margin-bottom:14px;
+  border-bottom:1px solid var(--line-soft);padding-bottom:10px;
+}
+.result-card .scoreline b{color:var(--ink);}
+.result-card p.quote{font-size:0.96rem;}
+.result-card .who{margin-top:14px;font-size:0.82rem;color:var(--ink-soft);}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--ink);margin-top:40px;padding:40px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px;}
+.footer-grid h5{font-family:var(--mono);font-size:0.72rem;color:var(--ink-soft);margin-bottom:12px;}
+.footer-grid ul{list-style:none;margin:0;padding:0;}
+.footer-grid li{margin-bottom:8px;}
+.footer-grid a{text-decoration:none;font-size:0.88rem;color:var(--ink-soft);background:none;border:none;font-family:inherit;cursor:pointer;display:inline-block;padding:0;}
+.footer-grid a:hover{color:var(--ink);}
+.footer-bottom{
+  margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;font-size:0.78rem;color:var(--ink-soft);
+  font-family:var(--mono);
+}
+
+/* ---------- Generic page header ---------- */
+.page-head{padding:40px 0 8px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+.page-head .kicker{font-family:var(--mono);font-size:0.74rem;color:var(--navy);margin-bottom:8px;}
+.page-head h1{font-size:clamp(1.7rem,3vw,2.4rem);}
+.page-head p{color:var(--ink-soft);margin-top:10px;max-width:56ch;}
+
+/* ---------- Policy / legal document pages ---------- */
+.policy{max-width:76ch;padding:32px 0 60px;}
+.policy .updated{font-family:var(--mono);font-size:0.78rem;color:var(--ink-soft);margin-bottom:32px;}
+.policy h2{font-size:1.15rem;margin:34px 0 12px;padding-top:20px;border-top:1px solid var(--line-soft);}
+.policy h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+.policy p{color:var(--ink-soft);line-height:1.7;margin-bottom:14px;}
+.policy p strong, .policy li strong{color:var(--ink);}
+.policy ul, .policy ol{color:var(--ink-soft);line-height:1.7;margin:0 0 14px;padding-left:22px;}
+.policy li{margin-bottom:8px;}
+.policy .fillin{background:var(--paper-alt);border:1px dashed var(--ink-soft);padding:2px 6px;font-family:var(--mono);font-size:0.85em;}
+.policy .callout{border:1px solid var(--ink);background:var(--paper-alt);padding:16px 20px;margin:24px 0;}
+.policy .callout p{color:var(--ink);margin-bottom:0;font-size:0.92rem;}
+
+/* ---------- Tabs ---------- */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--ink);margin:28px 0 0;flex-wrap:wrap;}
+.tab{
+  padding:12px 18px;border:1px solid var(--ink);border-bottom:none;
+  background:var(--paper);font-size:0.88rem;font-weight:600;
+  margin-right:-1px;font-family:inherit;cursor:pointer;
+}
+.tab.active{background:var(--ink);color:var(--paper);}
+
+/* ---------- Test list table ---------- */
+.test-list{border:1px solid var(--line);margin-top:0;}
+.test-row{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:16px;padding:18px 20px;
+  border-bottom:1px solid var(--line-soft);background:var(--white);
+}
+.test-row:last-child{border-bottom:none;}
+.test-info{flex:1 1 200px;}
+.test-row .name{font-weight:600;}
+.test-row .sub{font-size:0.82rem;color:var(--ink-soft);margin-top:3px;}
+.test-formats{display:flex;gap:10px;flex-wrap:wrap;}
+.format-chip{
+  display:flex;align-items:center;gap:10px;
+  border:1px solid var(--line-soft);padding:7px 10px 7px 12px;
+  white-space:nowrap;
+}
+.format-chip .price{font-family:var(--mono);font-weight:600;font-size:0.9rem;}
+.badge{
+  font-family:var(--mono);font-size:0.66rem;border:1px solid var(--ink);
+  color:var(--ink);padding:2px 7px;white-space:nowrap;
+}
+.badge.online{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* ---------- Checkout ---------- */
+.checkout-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px;}
+.checkout-panel{background:var(--white);padding:30px;}
+.order-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line-soft);font-size:0.92rem;}
+.order-row.total{border-top:1px solid var(--ink);border-bottom:none;font-weight:700;font-family:var(--mono);padding-top:16px;margin-top:6px;}
+.pay-toggle{display:flex;gap:0;margin:18px 0;border:1px solid var(--ink);}
+.pay-toggle button{flex:1;padding:10px;background:var(--paper);border:none;font-weight:600;font-size:0.86rem;border-right:1px solid var(--ink);}
+.pay-toggle button:last-child{border-right:none;}
+.pay-toggle button.active{background:var(--ink);color:var(--paper);}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:0.8rem;color:var(--ink-soft);margin-bottom:6px;font-family:var(--mono);}
+.field input{
+  width:100%;padding:11px 12px;border:1px solid var(--line);
+  background:var(--paper);font-family:var(--sans);font-size:0.94rem;
+}
+.field input:focus-visible{outline:2px solid var(--navy);}
+.field.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.trust-note{font-size:0.78rem;color:var(--ink-soft);margin-top:14px;display:flex;gap:8px;align-items:flex-start;}
+
+/* ---------- Dashboard ---------- */
+.dash-grid{display:grid;grid-template-columns:220px 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px;}
+.dash-side{background:var(--white);padding:22px;}
+.dash-side .rollid{font-family:var(--mono);font-size:0.75rem;border:1px solid var(--line);padding:12px;margin-bottom:18px;}
+.dash-side .rollid b{display:block;font-size:0.95rem;color:var(--ink);margin-top:2px;}
+.dash-side nav a{display:block;padding:9px 0;font-size:0.9rem;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line-soft);background:none;border-left:none;border-right:none;border-top:none;width:100%;text-align:left;font-family:inherit;cursor:pointer;}
+.dash-side nav a.active,.dash-side nav a:hover{color:var(--ink);font-weight:600;}
+.dash-main{background:var(--white);padding:28px 30px;}
+.lib-row{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line-soft);}
+.lib-row:last-child{border-bottom:none;}
+.lib-row .name{font-weight:600;}
+.lib-row .sub{font-size:0.8rem;color:var(--ink-soft);margin-top:3px;}
+
+/* ---------- Test-taking demo ---------- */
+.test-shell{border:1.5px solid var(--ink);background:var(--white);margin:28px 0;}
+.test-topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 22px;border-bottom:1px solid var(--ink);
+  font-family:var(--mono);font-size:0.8rem;
+}
+.timer{
+  border:1px solid var(--red);color:var(--red);padding:6px 12px;
+  font-weight:600;
+}
+.timer.done{border-color:var(--ink-soft);color:var(--ink-soft);}
+.progress-track{height:3px;background:var(--line-soft);}
+.progress-fill{height:100%;background:var(--navy);width:0%;transition:width .2s ease;}
+.test-body{padding:30px 34px;}
+.qnav{display:flex;gap:6px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid var(--line-soft);}
+.qnav button{
+  width:34px;height:34px;border:1px solid var(--line);background:var(--paper);
+  font-family:var(--mono);font-size:0.78rem;
+}
+.qnav button.current{border-color:var(--ink);border-width:2px;font-weight:700;}
+.qnav button.answered{background:var(--navy);color:#fff;border-color:var(--navy);}
+.test-actions{display:flex;justify-content:space-between;margin-top:26px;}
+.result-panel{padding:34px;text-align:left;}
+.result-score{font-family:var(--mono);font-size:3rem;font-weight:700;color:var(--navy);}
+.result-break{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:24px 0;}
+.result-break div{background:var(--white);padding:16px;text-align:center;}
+.result-break .n{font-family:var(--mono);font-size:1.4rem;font-weight:600;}
+.result-break .lab{font-size:0.76rem;color:var(--ink-soft);margin-top:4px;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1080px){
+  .track-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media (max-width:960px){
+  nav.primary{display:none;}
+  .nav-toggle{display:flex;}
+  .track-grid{grid-template-columns:repeat(2,1fr);}
+  .price-grid,.result-grid{grid-template-columns:1fr;}
+  .stat-row{grid-template-columns:1fr;}
+  .stat-row .stat{border-right:none;border-bottom:1px solid var(--line);}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .checkout-grid,.dash-grid{grid-template-columns:1fr;}
+  .instructions li{flex-direction:column;gap:6px;}
+}
+@media (max-width:640px){
+  .track-grid{grid-template-columns:1fr;}
+  .hero-main{padding:32px 22px 28px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .test-formats{width:100%;}
+  .format-chip{flex:1 1 auto;justify-content:space-between;}
+  .result-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="#home" class="brand" data-nav="home">
+      <span class="mark">MTA</span>
+      <span>Master Testing Agency<small>Practice papers, exam-standard</small></span>
+    </a>
+    <nav class="primary">
+      <a href="#courses" data-nav-link="courses">Test catalog</a>
+      <a href="#how" data-nav-link="how">How it works</a>
+      <a href="#sample" data-nav-link="sample">Sample question</a>
+      <a href="#dashboard" data-nav-link="dashboard">My library</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#checkout" class="btn outline small">Cart</a>
+      <a href="#courses" class="btn small">Browse tests</a>
+    </div>
+    <button type="button" class="nav-toggle" aria-label="Menu" id="navToggle"><span></span></button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ HOME ============ -->
+  <div class="view active" id="view-home">
+
+    <div class="paper-block">
+      <div class="band">
+        <span>SET&nbsp;A &nbsp;·&nbsp; SESSION 2026&ndash;27</span>
+        <span class="rollbox"><span></span><span></span><span></span><span></span></span>
+      </div>
+      <div class="hero-main">
+        <h1>Practice like it's exam day, not like it's a quiz app.</h1>
+        <p class="sub">Full-length PDF and online tests for Class 10 CBSE, Class 12 CBSE, NEET (UG), JEE Main and JEE Advanced — kept fully separate, each set to its own marking scheme, time limit and paper pattern.</p>
+        <div class="hero-actions">
+          <a href="#courses" class="btn">Browse the test catalog</a>
+          <a href="#test" class="btn outline">Try a test — free</a>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num">480+</div><div class="label">Tests across five exam tracks</div></div>
+        <div class="stat"><div class="num">₹29</div><div class="label">Starting price per test (PDF)</div></div>
+        <div class="stat"><div class="num">02:00–03:30</div><div class="label">Timed to the real exam duration</div></div>
+      </div>
+    </div>
+
+    <section id="tracks">
+      <div class="section-head">
+        <div>
+          <div class="kicker">CHOOSE YOUR TRACK</div>
+          <h2>Five exams. One paper standard.</h2>
+        </div>
+        <p class="desc">Every test is written to the current syllabus and marking scheme for its exam — not a generic question bank reused across boards. JEE Main and JEE Advanced are kept fully separate, with their own papers and pattern.</p>
+      </div>
+      <div class="track-grid">
+        <button type="button" class="track-card" data-goto-track="cbse10">
+          <span class="tag">BOARD</span>
+          <h3>Class 10 CBSE</h3>
+          <p>Maths, Science, Social Science, English — chapter tests and full pre-boards.</p>
+          <div class="meta"><span>120 tests</span><b>from ₹29</b></div>
+        </button>
+        <button type="button" class="track-card" data-goto-track="cbse12">
+          <span class="tag">BOARD</span>
+          <h3>Class 12 CBSE</h3>
+          <p>PCM, PCB and Commerce streams — board-pattern papers with step marking.</p>
+          <div class="meta"><span>140 tests</span><b>from ₹49</b></div>
+        </button>
+        <button type="button" class="track-card" data-goto-track="neet">
+          <span class="tag">MEDICAL</span>
+          <h3>NEET (UG)</h3>
+          <p>Physics, Chemistry, Botany, Zoology — 180-question full mocks and topic tests.</p>
+          <div class="meta"><span>110 tests</span><b>from ₹69</b></div>
+        </button>
+        <button type="button" class="track-card" data-goto-track="jeemain">
+          <span class="tag">ENGINEERING</span>
+          <h3>JEE Main</h3>
+          <p>Single-correct MCQs across Physics, Chemistry and Maths, in the Main pattern and marking scheme.</p>
+          <div class="meta"><span>70 tests</span><b>from ₹69</b></div>
+        </button>
+        <button type="button" class="track-card" data-goto-track="jeeadv">
+          <span class="tag">ENGINEERING</span>
+          <h3>JEE Advanced</h3>
+          <p>Multi-correct, matrix-match and numeric-answer sets, matched to the Advanced format.</p>
+          <div class="meta"><span>40 tests</span><b>from ₹59</b></div>
+        </button>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="section-head">
+        <div>
+          <div class="kicker">PRICING</div>
+          <h2>Pay per test, or per subject</h2>
+        </div>
+        <p class="desc">No subscription lock-in. Every test is sold as both a PDF and an online version — the PDF costs a little less. Prices shown are for Class 12 CBSE Physics as an example; every track is priced this way.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="kicker">SINGLE TEST</div>
+          <h3>One chapter test</h3>
+          <div class="amount">from ₹49 <sup>/ test</sup></div>
+          <ul>
+            <li>₹49 as a PDF, ₹59 as an online test</li>
+            <li>Full answer key with working</li>
+            <li>Valid for unlimited re-attempts</li>
+          </ul>
+          <a href="#courses" class="btn outline block">Browse single tests</a>
+        </div>
+        <div class="price-card">
+          <div class="kicker">SUBJECT BUNDLE</div>
+          <h3>Full subject, all chapters</h3>
+          <div class="amount">₹499 <sup>/ subject</sup></div>
+          <ul>
+            <li>Every chapter test plus 3 full mocks</li>
+            <li>Section-wise performance report</li>
+            <li>Updated through the exam session</li>
+          </ul>
+          <a href="#courses" class="btn block">Browse bundles</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="section-head">
+        <div>
+          <div class="kicker">RESULT SHEETS</div>
+          <h2>What students report after a term of practice</h2>
+        </div>
+      </div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="scoreline"><span>NEET (UG) AIR</span><b>Improved 8,400 ranks</b></div>
+          <p class="quote">"I used the Physics and Botany bundles for six weeks before the exam. The mocks were harder than the real paper, which helped."</p>
+          <div class="who">Aditi R. — Dehradun</div>
+        </div>
+        <div class="result-card">
+          <div class="scoreline"><span>CLASS 12 CBSE</span><b>91% aggregate</b></div>
+          <p class="quote">"The chapter tests matched the board's step-marking exactly, so I stopped losing marks on presentation."</p>
+          <div class="who">Kabir S. — Lucknow</div>
+        </div>
+        <div class="result-card">
+          <div class="scoreline"><span>JEE MAIN</span><b>99.1 percentile</b></div>
+          <p class="quote">"Online tests with the real 3-hour timer trained my pacing more than any coaching test series did."</p>
+          <div class="who">Meher K. — Pune</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <div class="view" id="view-how">
+    <div class="page-head">
+      <div class="kicker">GENERAL INSTRUCTIONS</div>
+      <h1>How a purchase works</h1>
+      <p>Read the following before you begin — from picking a test to checking your score.</p>
+    </div>
+    <div style="padding:28px 0 60px;">
+      <div class="instructions">
+        <div class="head">Read the following before you begin</div>
+        <ol>
+          <li>
+            <span class="n">1.</span>
+            <div class="t">
+              <h4>Pick a test</h4>
+              <p>Filter by exam, subject and chapter. Each listing shows the exact pattern: marks, duration, and whether it's a PDF or an online test.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">2.</span>
+            <div class="t">
+              <h4>Pay by UPI or card</h4>
+              <p>Checkout is a single page. Buy one test or a subject bundle — payment is handled at the time of purchase, no subscription required.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">3.</span>
+            <div class="t">
+              <h4>Get it instantly</h4>
+              <p>PDF tests appear in your library as a download, watermarked to your account. Online tests unlock immediately with a start-now timer.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">4.</span>
+            <div class="t">
+              <h4>Check your score</h4>
+              <p>Online tests are marked the moment you submit, with a full answer key and section-wise breakdown. PDF tests ship with a printable answer key.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <div class="btn-row" style="margin-top:28px;">
+        <a href="#courses" class="btn">Browse the test catalog</a>
+        <a href="#sample" class="btn outline">See a sample question</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SAMPLE QUESTION ============ -->
+  <div class="view" id="view-sample">
+    <div class="page-head">
+      <div class="kicker">FIVE SAMPLE PAPERS</div>
+      <h1>Moderate to tough — the way the real exam sets it</h1>
+      <p>Switch tracks to see a question from that exam's own paper. Most questions are written in the pattern of actual previous-year papers, not softened for a demo.</p>
+    </div>
+    <div style="padding:28px 0 60px;">
+      <div class="tabs" id="sampleTabs">
+        <button type="button" class="tab" data-cat="cbse10">Class 10 CBSE</button>
+        <button type="button" class="tab" data-cat="cbse12">Class 12 CBSE</button>
+        <button type="button" class="tab" data-cat="neet">NEET (UG)</button>
+        <button type="button" class="tab" data-cat="jeemain">JEE Main</button>
+        <button type="button" class="tab" data-cat="jeeadv">JEE Advanced</button>
+      </div>
+      <div class="qcard" style="border-top:none;">
+        <div class="qhead">
+          <span>SAMPLE QUESTION</span>
+          <span id="sampleQNum">Q. 7 of 45 &nbsp;·&nbsp; 4 marks</span>
+        </div>
+        <div class="qmeta">
+          <div><div class="lab">EXAM</div><div class="val" id="sampleExam">NEET (UG)</div></div>
+          <div><div class="lab">SUBJECT</div><div class="val" id="sampleSubject">Physics</div></div>
+          <div><div class="lab">CHAPTER</div><div class="val" id="sampleChapter">Projectile Motion</div></div>
+        </div>
+        <p class="qtext" id="sampleQText">A body is projected at an angle such that its horizontal range equals three times its maximum height. The angle of projection is closest to:</p>
+        <div class="opts" id="sampleOpts"></div>
+        <div class="reveal-row">
+          <button type="button" class="btn outline small" id="revealBtn">Reveal answer key</button>
+          <button class="btn outline small" id="newSampleBtn" type="button">Try another question from this paper</button>
+          <span class="reveal-note" id="revealNote">Correct answer and full working ship with every purchased test.</span>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:28px;">
+        <a href="#courses" class="btn">Buy the full test</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COURSES ============ -->
+  <div class="view" id="view-courses">
+    <div class="page-head">
+      <div class="kicker">TEST CATALOG</div>
+      <h1 id="trackTitle">Class 10 CBSE</h1>
+      <p id="trackDesc">Chapter-wise tests and full pre-board papers, priced individually or as a subject bundle.</p>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button type="button" class="tab" data-track="cbse10">Class 10 CBSE</button>
+      <button type="button" class="tab" data-track="cbse12">Class 12 CBSE</button>
+      <button type="button" class="tab" data-track="neet">NEET (UG)</button>
+      <button type="button" class="tab" data-track="jeemain">JEE Main</button>
+      <button type="button" class="tab" data-track="jeeadv">JEE Advanced</button>
+    </div>
+
+    <section style="padding-top:24px;">
+      <div class="section-head" style="border:none;padding-bottom:0;margin-bottom:14px;">
+        <div><div class="kicker">SECTION A</div><h2 style="font-size:1.25rem;">Chapter tests</h2></div>
+        <p class="desc">One chapter or topic at a time — for building up before a full mock.</p>
+      </div>
+      <div class="test-list" id="chapterTestList"></div>
+    </section>
+
+    <section style="padding-top:8px;">
+      <div class="section-head" style="border:none;padding-bottom:0;margin-bottom:14px;">
+        <div><div class="kicker">SECTION B</div><h2 style="font-size:1.25rem;">Mock tests &amp; full subject papers</h2></div>
+        <p class="desc" id="listNote">Full-length, exam-duration papers — for a real dry run before test day. Prices include the answer key.</p>
+      </div>
+      <div class="test-list" id="mockTestList"></div>
+    </section>
+  </div>
+
+  <!-- ============ CHECKOUT ============ -->
+  <div class="view" id="view-checkout">
+    <div class="page-head">
+      <div class="kicker">CHECKOUT</div>
+      <h1>Complete your purchase</h1>
+      <p>Payment is processed securely at the time of purchase. Your test unlocks the moment payment is confirmed — no waiting, no email delay.</p>
+    </div>
+
+    <div class="checkout-grid" id="checkoutGrid">
+      <div class="checkout-panel">
+        <h3 style="font-size:1.1rem;margin-bottom:16px;">Pay with</h3>
+        <div class="pay-toggle">
+          <button id="payUpiBtn" class="active" type="button">UPI</button>
+          <button id="payCardBtn" type="button">Card</button>
+        </div>
+
+        <div id="upiForm">
+          <div class="field">
+            <label for="upiId">UPI ID</label>
+            <input type="text" id="upiId" placeholder="yourname@upi" autocomplete="off">
+          </div>
+          <p class="trust-note">You'll get a payment request on your UPI app. Confirm there to complete the purchase.</p>
+        </div>
+
+        <div id="cardForm" style="display:none;">
+          <div class="field">
+            <label for="cardNumber">Card number</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" inputmode="numeric" autocomplete="off">
+          </div>
+          <div class="field split">
+            <div>
+              <label for="cardExpiry">Expiry</label>
+              <input type="text" id="cardExpiry" placeholder="MM / YY" autocomplete="off">
+            </div>
+            <div>
+              <label for="cardCvv">CVV</label>
+              <input type="text" id="cardCvv" placeholder="•••" inputmode="numeric" autocomplete="off">
+            </div>
+          </div>
+          <div class="field">
+            <label for="cardName">Name on card</label>
+            <input type="text" id="cardName" placeholder="As printed on the card" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:6px;">
+          <label for="email">Email — your test and receipt go here</label>
+          <input type="email" id="email" placeholder="you@example.com">
+        </div>
+
+        <button class="btn red block" id="payBtn" type="button" style="margin-top:6px;">Pay <span id="payAmount"></span></button>
+        <p class="trust-note">This is a demo checkout. A live build wires this panel to a payment gateway such as Razorpay or Stripe — no card or UPI details on this page are transmitted anywhere.</p>
+      </div>
+
+      <div class="checkout-panel" style="background:var(--paper-alt);">
+        <h3 style="font-size:1.1rem;margin-bottom:6px;">Order summary</h3>
+        <p style="font-size:0.84rem;color:var(--ink-soft);margin-bottom:16px;" id="orderTrack">—</p>
+        <div id="orderLine"></div>
+        <div class="order-row"><span>Subtotal</span><span id="sumSub">₹0</span></div>
+        <div class="order-row"><span>Platform fee</span><span id="sumFee">₹0</span></div>
+        <div class="order-row total"><span>Total due</span><span id="sumTotal">₹0</span></div>
+      </div>
+    </div>
+
+    <div class="checkout-panel" id="confirmPanel" style="display:none;border:1.5px solid var(--ink);margin-top:24px;background:var(--white);">
+      <div class="kicker" style="display:inline-block;background:var(--ink);color:#fff;padding:4px 10px;">PAYMENT CONFIRMED</div>
+      <h2 style="font-size:1.4rem;margin:12px 0 10px;">You're all set.</h2>
+      <p style="color:var(--ink-soft);margin-bottom:20px;" id="confirmText">Your test has been added to your library.</p>
+      <div class="btn-row">
+        <a href="#dashboard" class="btn">Go to my library</a>
+        <a href="#courses" class="btn outline">Buy another test</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DASHBOARD ============ -->
+  <div class="view" id="view-dashboard">
+    <div class="page-head">
+      <div class="kicker">MY LIBRARY</div>
+      <h1>Everything you've bought, in one place</h1>
+      <p>PDF tests are ready to download. Online tests start whenever you're ready — the timer only begins once you click start.</p>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-side">
+        <div class="rollid">
+          ROLL NO.
+          <b>MTA-2026-0417</b>
+        </div>
+        <nav>
+          <a href="#dashboard" class="active">All purchases</a>
+          <a href="#dashboard">PDF tests</a>
+          <a href="#dashboard">Online tests</a>
+          <a href="#dashboard">Score history</a>
+          <a href="#dashboard">Account settings</a>
+        </nav>
+      </div>
+
+      <div class="dash-main">
+        <h3 style="font-size:1.05rem;margin-bottom:4px;">Recent purchases</h3>
+        <p style="color:var(--ink-soft);font-size:0.86rem;margin-bottom:6px;">8 tests purchased across 2 exam tracks</p>
+
+        <div style="margin-top:18px;">
+          <div class="lib-row">
+            <div>
+              <div class="name">NEET (UG) Full Mock Test 14</div>
+              <div class="sub">Online test · 180 Q · 200 min · bought 15 Sep 2026</div>
+            </div>
+            <span class="badge online">Not started</span>
+            <a href="#test" class="btn small">Start test</a>
+          </div>
+
+          <div class="lib-row">
+            <div>
+              <div class="name">Physics — Mechanics Topic Test</div>
+              <div class="sub">Online test · 45 Q · 50 min · bought 12 Sep 2026</div>
+            </div>
+            <span class="badge online">Completed · 86%</span>
+            <a href="#test" class="btn outline small">Review</a>
+          </div>
+
+          <div class="lib-row">
+            <div>
+              <div class="name">Botany — Plant Physiology</div>
+              <div class="sub">PDF test · 45 Q · bought 12 Sep 2026</div>
+            </div>
+            <span class="badge">PDF ready</span>
+            <a href="#" class="btn outline small" data-mock-download="1">Download</a>
+          </div>
+
+          <div class="lib-row">
+            <div>
+              <div class="name">Class 12 CBSE Physics — Full Pre-Board Paper 1</div>
+              <div class="sub">Online test · 70 marks · 180 min · bought 8 Sep 2026</div>
+            </div>
+            <span class="badge online">Completed · 74%</span>
+            <a href="#test" class="btn outline small">Review</a>
+          </div>
+
+          <div class="lib-row">
+            <div>
+              <div class="name">Maths — Vectors, 3D Geometry &amp; Probability</div>
+              <div class="sub">PDF test · 35 marks · bought 3 Sep 2026</div>
+            </div>
+            <span class="badge">PDF ready</span>
+            <a href="#" class="btn outline small" data-mock-download="1">Download</a>
+          </div>
+
+          <div class="lib-row">
+            <div>
+              <div class="name">Previous Year Pattern Set — 2025</div>
+              <div class="sub">PDF test · 720 marks · bought 3 Sep 2026</div>
+            </div>
+            <span class="badge">PDF ready</span>
+            <a href="#" class="btn outline small" data-mock-download="1">Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TEST DEMO ============ -->
+  <div class="view" id="view-test">
+    <div class="page-head">
+      <div class="kicker">FREE SAMPLE TEST</div>
+      <h1>Try a free 6-question test</h1>
+      <p>Pick your exam below — six questions from that exam's own bank, timed, scored instantly with an answer key.</p>
+    </div>
+
+    <div class="tabs" id="testTabs">
+      <button type="button" class="tab" data-track="cbse10">Class 10 CBSE</button>
+      <button type="button" class="tab" data-track="cbse12">Class 12 CBSE</button>
+      <button type="button" class="tab" data-track="neet">NEET (UG)</button>
+      <button type="button" class="tab" data-track="jeemain">JEE Main</button>
+      <button type="button" class="tab" data-track="jeeadv">JEE Advanced</button>
+    </div>
+
+    <div class="test-shell" id="testShell" style="margin-top:0;border-top:none;">
+      <div class="test-topbar">
+        <span id="qLabel">Question 1 of 6</span>
+        <div class="timer" id="timer">05:00</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+      <div class="test-body">
+        <div class="qcard" style="border:none;padding:0;" id="qcard"></div>
+        <div class="qnav" id="qnav"></div>
+        <div class="test-actions">
+          <div style="display:flex;gap:10px;">
+            <button class="btn outline small" id="prevBtn" type="button">Previous</button>
+            <button class="btn outline small" id="nextBtn" type="button">Next</button>
+          </div>
+          <button class="btn red" id="submitBtn" type="button">Submit test</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-shell result-panel" id="resultShell" style="display:none;">
+      <div class="kicker" style="color:var(--navy);">RESULT SHEET</div>
+      <h2 style="font-size:1.4rem;margin:8px 0 4px;" id="resultHeading">Section complete</h2>
+      <div class="result-score" id="scoreOut">0 / 24</div>
+      <p style="color:var(--ink-soft);margin-top:6px;" id="scorePct">0% scored</p>
+      <div class="result-break">
+        <div><div class="n" id="rCorrect" style="color:var(--ink);">0</div><div class="lab">Correct</div></div>
+        <div><div class="n" id="rWrong" style="color:var(--red);">0</div><div class="lab">Incorrect</div></div>
+        <div><div class="n" id="rSkip">0</div><div class="lab">Unattempted</div></div>
+      </div>
+      <div class="btn-row">
+        <a href="#courses" class="btn" id="resultBuyLink">Buy the full test</a>
+        <a href="#dashboard" class="btn outline">Back to my library</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ REFUND & CANCELLATION POLICY ============ -->
+  <div class="view" id="view-refund">
+    <div class="page-head">
+      <div class="kicker">POLICIES</div>
+      <h1>Refund &amp; Cancellation Policy</h1>
+      <p>How refunds work for PDF and online tests purchased on Master Testing Agency.</p>
+    </div>
+    <div class="policy">
+      <p class="updated">Last updated: 17 September 2026</p>
+
+      <div class="callout">
+        <p>This policy is drafted to align with the Consumer Protection Act, 2019, the Consumer Protection (E-Commerce) Rules, 2020, and RBI's Turn Around Time framework for failed digital transactions. It is a template, not legal advice — please have it reviewed by a lawyer and fill in the <span class="fillin">bracketed</span> details before publishing.</p>
+      </div>
+
+      <h2>1. Overview</h2>
+      <p>Master Testing Agency ("we", "us", "our") sells digital PDF test papers and online mock tests ("Tests") for Class 10 CBSE, Class 12 CBSE, NEET (UG), JEE Main and JEE Advanced. Because Tests are digital products delivered instantly on successful payment, this policy explains when a purchase is, and is not, eligible for a refund.</p>
+
+      <h2>2. General Rule for Digital Goods</h2>
+      <p>Once a Test has been accessed — meaning a PDF has been downloaded, or an online test has been started — the purchase is treated as delivered and used, and is not eligible for a refund except as set out in Section 3.</p>
+
+      <h2>3. When a Refund Is Available</h2>
+      <ul>
+        <li><strong>Failed or duplicate payment.</strong> If an amount is debited from your card, UPI, or bank account but the Test is not unlocked in your library due to a payment or technical failure, you are entitled to a refund. Under RBI's Turn Around Time framework for failed transactions, such amounts are auto-reversed to your original payment method within 5 working days (T+5); if this does not happen, contact us immediately.</li>
+        <li><strong>Wrong or duplicate purchase.</strong> If you accidentally bought the same Test twice, or purchased the wrong Test, and have <strong>not</strong> downloaded the PDF or started the online test, you may request a refund within 24 hours of purchase.</li>
+        <li><strong>Technical defect.</strong> If a purchased Test is genuinely inaccessible, corrupted, or defective due to an error on our end, and our support team cannot resolve it within 3 business days of you reporting it, you are entitled to a full refund for that Test.</li>
+      </ul>
+
+      <h2>4. When a Refund Is Not Available</h2>
+      <ul>
+        <li>Once a PDF Test has been downloaded.</li>
+        <li>Once an online Test has been started — even if not completed or submitted.</li>
+        <li>Change of mind, or dissatisfaction with question difficulty, after access has been granted. Sample questions on the site let you check the format and difficulty before you buy.</li>
+        <li>Where the correct exam, subject, and chapter were clearly stated on the listing at the time of purchase.</li>
+      </ul>
+
+      <h2>5. How to Request a Refund</h2>
+      <p>Email <a href="mailto:mastertestingagency@gmail.com">mastertestingagency@gmail.com</a> from the address used at checkout, with your order or payment reference and a short description of the issue. We aim to acknowledge every request within 48 hours.</p>
+
+      <h2>6. Refund Timeline &amp; Mode</h2>
+      <p>Approved refunds are processed to the original mode of payment (UPI, card, or netbanking) within 7–10 business days, subject to your bank's or payment provider's own processing times. We do not issue refunds to a different account, or as cash.</p>
+
+      <h2>7. No Subscriptions</h2>
+      <p>Master Testing Agency does not operate subscriptions — every purchase is a one-time payment for a specific Test or bundle. There is nothing to cancel on an ongoing basis; Sections 3 and 4 above govern what is refundable.</p>
+
+      <h2>8. Grievance Redressal</h2>
+      <p>For refund requests or complaints, contact our Grievance Officer:</p>
+      <ul>
+        <li>Name &amp; designation: <span class="fillin">[to be filled in]</span></li>
+        <li>Email: <a href="mailto:mastertestingagency@gmail.com">mastertestingagency@gmail.com</a></li>
+      </ul>
+      <p>We acknowledge complaints within 48 hours and aim to resolve them within 30 days, as required under the Consumer Protection (E-Commerce) Rules, 2020.</p>
+
+      <h2>9. Changes to This Policy</h2>
+      <p>We may update this policy from time to time. The version in effect at the time of your purchase governs that purchase.</p>
+    </div>
+  </div>
+
+  <!-- ============ TERMS OF SERVICE ============ -->
+  <div class="view" id="view-terms">
+    <div class="page-head">
+      <div class="kicker">POLICIES</div>
+      <h1>Terms of Service</h1>
+      <p>The terms that apply when you use Master Testing Agency or purchase a Test.</p>
+    </div>
+    <div class="policy">
+      <p class="updated">Last updated: 17 September 2026</p>
+
+      <div class="callout">
+        <p>This is a template Terms of Service drafted to align with Indian law — the Information Technology Act, 2000, the Consumer Protection Act, 2019, the Consumer Protection (E-Commerce) Rules, 2020, and the IT (Intermediary Guidelines) Rules, 2021. It is not a substitute for legal advice. Fill in the <span class="fillin">bracketed</span> details — registered business name, Grievance Officer, and jurisdiction — before publishing.</p>
+      </div>
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing this website (the "Platform") or purchasing any Test through it, you agree to be bound by these Terms of Service ("Terms"). If you do not agree, please do not use the Platform.</p>
+
+      <h2>2. Who We Are</h2>
+      <p>Master Testing Agency provides PDF and online practice tests for Class 10 CBSE, Class 12 CBSE, NEET (UG), JEE Main and JEE Advanced. These Terms constitute an electronic record under the Information Technology Act, 2000, and do not require any physical or digital signature.</p>
+
+      <h2>3. Eligibility</h2>
+      <p>The Platform is intended for students and their parents or guardians. If you are under 18, you may use the Platform only with the involvement and consent of a parent or legal guardian, who agrees to these Terms on your behalf for account registration and payment.</p>
+
+      <h2>4. Account Registration</h2>
+      <p>You may need to provide an email address and other details to purchase and access Tests. You are responsible for keeping your account confidential and for all activity under it. Notify us immediately at <a href="mailto:mastertestingagency@gmail.com">mastertestingagency@gmail.com</a> of any unauthorised use.</p>
+
+      <h2>5. Nature of Services</h2>
+      <p>We sell two kinds of digital products: <strong>PDF Tests</strong> — downloadable question papers with an answer key, added to your account library on successful payment — and <strong>Online Tests</strong> — timed, browser-based tests, scored automatically on submission with an answer key shown afterward.</p>
+      <p>Test content is prepared to reflect the syllabus and pattern of the relevant exam, but is independent, unofficial practice material. Master Testing Agency is not affiliated with, endorsed by, or connected to CBSE, NTA, or any examination authority.</p>
+
+      <h2>6. Fees and Payment</h2>
+      <ul>
+        <li>Prices for each Test are shown on the Platform and are inclusive of applicable taxes unless stated otherwise.</li>
+        <li>Payments are processed through third-party, RBI-authorised payment gateways. We do not store your full card number, CVV, or UPI PIN on our servers.</li>
+        <li>All purchases are one-time payments; the Platform does not currently offer recurring subscriptions.</li>
+        <li>Refunds and cancellations are governed by our separate <a href="#refund">Refund &amp; Cancellation Policy</a>.</li>
+      </ul>
+
+      <h2>7. Intellectual Property</h2>
+      <ul>
+        <li>All Test content, questions, answer keys, and related material are the intellectual property of Master Testing Agency, protected under the Copyright Act, 1957.</li>
+        <li>PDF Tests are watermarked to your account. You may download and print a Test for your own personal, non-commercial exam preparation only.</li>
+        <li>You may not copy, redistribute, resell, upload to any third-party platform, or share your account or purchased content with anyone else. Accounts found doing so may be suspended without a refund.</li>
+      </ul>
+
+      <h2>8. User Conduct</h2>
+      <p>You agree not to: use bots or scrapers to access or download content; attempt to bypass payment, watermarking, or access controls; misuse the online test timer or scoring system to misrepresent your performance to a third party; or upload or transmit unlawful, defamatory, or infringing content through the Platform.</p>
+
+      <h2>9. Disclaimer of Warranties</h2>
+      <p>Tests are practice material intended to aid exam preparation. We do not guarantee any specific score, rank, or outcome in the actual board exam, NEET (UG), JEE Main, or JEE Advanced. The Platform is provided "as is" and "as available"; while we make reasonable efforts to keep content accurate and the Platform running, we do not warrant it will be uninterrupted or error-free.</p>
+
+      <h2>10. Limitation of Liability</h2>
+      <p>To the maximum extent permitted by law, our total liability arising from your use of the Platform will not exceed the amount you paid for the specific Test giving rise to the claim. We are not liable for indirect, incidental, or consequential damages, including loss of exam performance or opportunity.</p>
+
+      <h2>11. Grievance Redressal</h2>
+      <p>In line with the Consumer Protection (E-Commerce) Rules, 2020 and the IT (Intermediary Guidelines) Rules, 2021, our Grievance Officer can be reached at:</p>
+      <ul>
+        <li>Name &amp; designation: <span class="fillin">[to be filled in]</span></li>
+        <li>Email: <a href="mailto:mastertestingagency@gmail.com">mastertestingagency@gmail.com</a></li>
+      </ul>
+      <p>We acknowledge grievances within 48 hours and aim to resolve them within 30 days of receipt.</p>
+
+      <h2>12. Governing Law and Jurisdiction</h2>
+      <p>These Terms are governed by the laws of India. Subject to your rights under the Consumer Protection Act, 2019 (including approaching the National Consumer Helpline or the relevant Consumer Disputes Redressal Commission), any dispute is subject to the exclusive jurisdiction of the courts at <span class="fillin">[City, State]</span>, India.</p>
+
+      <h2>13. Changes to These Terms</h2>
+      <p>We may revise these Terms from time to time. Continued use of the Platform after changes are posted means you accept the revised Terms.</p>
+
+      <h2>14. Contact Us</h2>
+      <p>For any question about these Terms, write to <a href="mailto:mastertestingagency@gmail.com">mastertestingagency@gmail.com</a>.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:10px;">
+          <span class="mark">MTA</span>
+          <span>Master Testing Agency</span>
+        </div>
+        <p style="color:var(--ink-soft);font-size:0.88rem;max-width:32ch;">Exam-standard PDF and online practice tests for CBSE, NEET (UG), JEE Main and JEE Advanced. Built by test-setters, not a generic quiz platform.</p>
+        <p style="font-family:var(--mono);font-size:0.8rem;margin-top:14px;">Support: <a href="mailto:mastertestingagency@gmail.com" style="text-decoration:underline;">mastertestingagency@gmail.com</a></p>
+      </div>
+      <div>
+        <h5>TRACKS</h5>
+        <ul>
+          <li><a href="#courses" data-goto-track="cbse10">Class 10 CBSE</a></li>
+          <li><a href="#courses" data-goto-track="cbse12">Class 12 CBSE</a></li>
+          <li><a href="#courses" data-goto-track="neet">NEET (UG)</a></li>
+          <li><a href="#courses" data-goto-track="jeemain">JEE Main</a></li>
+          <li><a href="#courses" data-goto-track="jeeadv">JEE Advanced</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>ACCOUNT</h5>
+        <ul>
+          <li><a href="#dashboard">My library</a></li>
+          <li><a href="#checkout">Cart &amp; checkout</a></li>
+          <li><a href="#test">Try a sample test</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>SUPPORT</h5>
+        <ul>
+          <li><a href="#refund">Refund policy</a></li>
+          <li><a href="mailto:mastertestingagency@gmail.com">Contact support</a></li>
+          <li><a href="#terms">Terms of service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MASTER TESTING AGENCY</span>
+      <span>PAPER SET A · NOT FOR RESALE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Router — hash-based, single file, no page reloads
+   ============================================================ */
+const VIEWS = ['home','courses','checkout','dashboard','test','refund','terms','how','sample'];
+const NAV_LINKS = ['courses','how','sample','dashboard'];
+
+function showView(name){
+  VIEWS.forEach(v=>{
+    document.getElementById('view-'+v).classList.toggle('active', v === name);
+  });
+  document.querySelectorAll('nav.primary a').forEach(a=>{
+    a.classList.toggle('active', a.dataset.navLink === name);
+  });
+  window.scrollTo({top:0, behavior:'auto'});
+}
+
+function handleRoute(){
+  const raw = window.location.hash.slice(1) || 'home';
+  const [route, queryStr] = raw.split('?');
+  const q = new URLSearchParams(queryStr || '');
+
+  if (route === 'home' || route === ''){ showView('home'); return; }
+  if (route === 'pricing' || route === 'results'){
+    showView('home');
+    const el = document.getElementById(route);
+    if (el) setTimeout(()=>el.scrollIntoView({behavior:'smooth', block:'start'}), 10);
+    return;
+  }
+  if (route === 'how'){ showView('how'); return; }
+  if (route === 'sample'){ showView('sample'); return; }
+  if (route === 'courses'){
+    showView('courses');
+    const track = q.get('track') && CATALOG[q.get('track')] ? q.get('track') : (currentTrack || 'cbse10');
+    renderCatalog(track);
+    return;
+  }
+  if (route === 'checkout'){
+    showView('checkout');
+    renderCheckout(q);
+    return;
+  }
+  if (route === 'dashboard'){ showView('dashboard'); return; }
+  if (route === 'test'){
+    showView('test');
+    const track = q.get('track') && TEST_POOLS[q.get('track')] ? q.get('track') : (testTrack || pickRandomCategory());
+    selectTestTrack(track);
+    return;
+  }
+  if (route === 'refund'){ showView('refund'); return; }
+  if (route === 'terms'){ showView('terms'); return; }
+  showView('home');
+}
+
+window.addEventListener('hashchange', handleRoute);
+window.addEventListener('DOMContentLoaded', () => {
+  handleRoute();
+  wireGlobalNav();
+});
+
+function wireGlobalNav(){
+  // mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  const nav = document.querySelector('nav.primary');
+  if (toggle && nav){
+    toggle.addEventListener('click', () => {
+      const open = nav.style.display === 'flex';
+      nav.style.display = open ? 'none' : 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.position = 'absolute';
+      nav.style.top = '64px';
+      nav.style.left = '0';
+      nav.style.right = '0';
+      nav.style.background = 'var(--paper)';
+      nav.style.borderBottom = '1px solid var(--line)';
+      nav.style.padding = '12px 28px';
+      nav.style.gap = '14px';
+    });
+  }
+
+  // sample papers (home view) — random exam + question on open,
+  // tabs to switch papers, and a button to cycle within the same paper
+  selectSampleCategory(pickRandomCategory());
+  document.getElementById('revealBtn').addEventListener('click', revealSample);
+  document.getElementById('newSampleBtn').addEventListener('click', () => {
+    sampleIndex = pickRandomIndex(sampleCategory, sampleIndex);
+    renderSample();
+  });
+  document.querySelectorAll('#sampleTabs .tab').forEach(tab=>{
+    tab.addEventListener('click', () => selectSampleCategory(tab.dataset.cat));
+  });
+  document.querySelectorAll('#testTabs .tab').forEach(tab=>{
+    tab.addEventListener('click', () => selectTestTrack(tab.dataset.track));
+  });
+
+  // track cards on home -> go to courses with that track
+  document.querySelectorAll('[data-goto-track]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      e.preventDefault();
+      window.location.hash = 'courses?track=' + el.dataset.gotoTrack;
+    });
+  });
+
+  // mock PDF downloads in dashboard / footer
+  document.querySelectorAll('[data-mock-download]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      e.preventDefault();
+      if (el.dataset.mockDownload === '1'){
+        alert('This demo does not include a real file — in production this downloads the watermarked PDF.');
+      }
+    });
+  });
+}
+
+/* ============================================================
+   Homepage sample papers — one question bank per exam.
+   A tab picks the paper; a random question from that paper
+   loads on open, and "try another" cycles within the same paper.
+   ============================================================ */
+const SAMPLE_BANK = {
+  cbse10: [
+    {
+      exam: "Class 10 CBSE",
+      subject: "Mathematics",
+      chapter: "Arithmetic Progressions",
+      qnum: "Q. 14 of 20 &nbsp;·&nbsp; 3 marks &nbsp;·&nbsp; board HOTS pattern",
+      text: "The sum of the 4th and 8th terms of an AP is 24, and the sum of the 6th and 10th terms is 44. The common difference of the AP is:",
+      opts: ["5","4","6","3"],
+      correct: 0,
+      working: "Correct answer: A — 5. From the two equations (a+3d)+(a+7d)=24 and (a+5d)+(a+9d)=44, subtracting gives 2d = 10, so d = 5."
+    },
+    {
+      exam: "Class 10 CBSE",
+      subject: "Science",
+      chapter: "Electricity",
+      qnum: "Q. 22 of 20 &nbsp;·&nbsp; 3 marks &nbsp;·&nbsp; board HOTS pattern",
+      text: "A 4 Ω resistor and a 6 Ω resistor are connected in series, and this combination is connected in parallel with a separate 10 Ω resistor. The equivalent resistance of the full combination is:",
+      opts: ["5 Ω","10 Ω","20 Ω","2.5 Ω"],
+      correct: 0,
+      working: "Correct answer: A — 5 Ω. The series arm gives 4+6 = 10 Ω, and 10 Ω in parallel with 10 Ω gives (10×10)/(10+10) = 5 Ω."
+    },
+    {
+      exam: "Class 10 CBSE",
+      subject: "Social Science",
+      chapter: "Nationalism in India",
+      qnum: "Q. 9 of 20 &nbsp;·&nbsp; 2 marks &nbsp;·&nbsp; board reasoning pattern",
+      text: "Mahatma Gandhi withdrew the Non-Cooperation Movement in February 1922 mainly because:",
+      opts: [
+        "A mob set fire to a police station at Chauri Chaura, killing several policemen",
+        "The British government agreed to grant full independence",
+        "The Indian National Congress split into two factions",
+        "World War I had just begun"
+      ],
+      correct: 0,
+      working: "Correct answer: A — the Chauri Chaura incident convinced Gandhi the movement was turning violent, against his principle of non-violence."
+    }
+  ],
+  cbse12: [
+    {
+      exam: "Class 12 CBSE",
+      subject: "Physics",
+      chapter: "Current Electricity",
+      qnum: "Q. 18 of 30 &nbsp;·&nbsp; 3 marks &nbsp;·&nbsp; board numerical pattern",
+      text: "In a potentiometer experiment, the balancing length for a cell is 480 cm. On shunting the cell with a resistance of 4 Ω, the balancing length becomes 400 cm. The internal resistance of the cell is:",
+      opts: ["0.8 Ω","1.2 Ω","4.0 Ω","0.4 Ω"],
+      correct: 0,
+      working: "Correct answer: A — 0.8 Ω, from r = R(l₁−l₂)/l₂ = 4×(480−400)/400 = 320/400 = 0.8 Ω."
+    },
+    {
+      exam: "Class 12 CBSE",
+      subject: "Chemistry",
+      chapter: "Electrochemistry",
+      qnum: "Q. 25 of 30 &nbsp;·&nbsp; 3 marks &nbsp;·&nbsp; NCERT numerical pattern",
+      text: "A cell reaction involving transfer of 2 mol of electrons has a standard EMF of 0.295 V at 300 K. Using log K = nE°/0.0591, the value of log K for the reaction is closest to:",
+      opts: ["10","5","15","20"],
+      correct: 0,
+      working: "Correct answer: A — log K = (2 × 0.295)/0.0591 ≈ 9.98, closest to 10."
+    },
+    {
+      exam: "Class 12 CBSE",
+      subject: "Mathematics",
+      chapter: "Application of Derivatives",
+      qnum: "Q. 21 of 30 &nbsp;·&nbsp; 3 marks &nbsp;·&nbsp; board numerical pattern",
+      text: "The absolute maximum value of f(x) = x³ − 3x² + 6 on the interval [−1, 2] is:",
+      opts: ["6","2","8","10"],
+      correct: 0,
+      working: "Correct answer: A — 6. f'(x) = 3x² − 6x = 0 gives x = 0, 2. Checking f(−1) = 2, f(0) = 6, f(2) = 2, so the maximum is 6 at x = 0."
+    }
+  ],
+  neet: [
+    {
+      exam: "NEET (UG)",
+      subject: "Physics",
+      chapter: "Motion in a Plane",
+      qnum: "Q. 11 of 45 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "A particle moves in a circle of radius R with constant speed v. The magnitude of its average velocity after it has completed an angle of 60° at the centre is:",
+      opts: ["3v/π","v","v/2","2v/π"],
+      correct: 0,
+      working: "Correct answer: A — 3v/π. The chord length for 60° is R, and the time taken is (Rπ/3)/v, giving average velocity = R ÷ (πR/3v) = 3v/π."
+    },
+    {
+      exam: "NEET (UG)",
+      subject: "Chemistry",
+      chapter: "Chemical Kinetics",
+      qnum: "Q. 28 of 45 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "For the reaction 2A + B → C, the rate law is rate = k[A]²[B]⁰. If the concentration of A is doubled and B is tripled, the rate of the reaction:",
+      opts: ["Increases 4 times","Increases 6 times","Increases 8 times","Increases 12 times"],
+      correct: 0,
+      working: "Correct answer: A — the reaction is second order in A and zero order in B, so doubling A alone increases the rate by 2² = 4 times."
+    },
+    {
+      exam: "NEET (UG)",
+      subject: "Biology",
+      chapter: "Principles of Inheritance",
+      qnum: "Q. 33 of 45 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "A colour-blind man (X-linked recessive trait) marries a woman who is a carrier for colour blindness. The proportion of their daughters expected to be colour-blind is:",
+      opts: ["50%","0%","25%","100%"],
+      correct: 0,
+      working: "Correct answer: A — 50%. Daughters always receive the father's affected X; from the carrier mother they receive a normal or affected X with equal chance, so half of daughters are colour-blind."
+    }
+  ],
+  jeemain: [
+    {
+      exam: "JEE Main",
+      subject: "Physics",
+      chapter: "Work, Energy and Power",
+      qnum: "Q. 16 of 25 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "A block slides down a frictionless incline of height h and then moves on a rough horizontal surface with coefficient of friction μ, coming to rest after travelling a distance d. The value of μ is:",
+      opts: ["h/d","d/h","2h/d","h/(2d)"],
+      correct: 0,
+      working: "Correct answer: A — h/d. By energy conservation, mgh = μmgd, so μ = h/d, independent of the incline's angle."
+    },
+    {
+      exam: "JEE Main",
+      subject: "Chemistry",
+      chapter: "Coordination Compounds",
+      qnum: "Q. 21 of 25 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "The number of unpaired electrons in the complex ion [Fe(CN)₆]⁴⁻ is:",
+      opts: ["0","2","4","5"],
+      correct: 0,
+      working: "Correct answer: A — 0. Fe is in the +2 state (d⁶), and CN⁻ is a strong-field ligand causing a low-spin t₂g⁶eg⁰ configuration with no unpaired electrons."
+    },
+    {
+      exam: "JEE Main",
+      subject: "Mathematics",
+      chapter: "Binomial Theorem",
+      qnum: "Q. 7 of 25 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "If the sum of the coefficients in the expansion of (x + y)ⁿ is 4096, the greatest coefficient in the expansion is:",
+      opts: ["924","792","495","1024"],
+      correct: 0,
+      working: "Correct answer: A — 924. The sum of coefficients is 2ⁿ = 4096, so n = 12. The greatest coefficient is the middle term, C(12,6) = 924."
+    }
+  ],
+  jeeadv: [
+    {
+      exam: "JEE Advanced",
+      subject: "Physics",
+      chapter: "Rotational Mechanics",
+      qnum: "Q. 6 of 18 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "A uniform rod of length L, pivoted at one end, is released from rest in a horizontal position. Its angular velocity when it becomes vertical is:",
+      opts: ["√(3g/L)","√(g/L)","√(2g/L)","√(6g/L)"],
+      correct: 0,
+      working: "Correct answer: A — √(3g/L). Using energy conservation with I = ML²/3 about the pivot: ½Iω² = Mg(L/2), which simplifies to ω = √(3g/L)."
+    },
+    {
+      exam: "JEE Advanced",
+      subject: "Chemistry",
+      chapter: "Chemical Kinetics",
+      qnum: "Q. 11 of 18 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "For a first-order reaction, 75% of the reaction is completed in 32 minutes. The time required for 50% completion is:",
+      opts: ["16 minutes","8 minutes","32 minutes","24 minutes"],
+      correct: 0,
+      working: "Correct answer: A — 16 minutes. 75% completion corresponds to exactly two half-lives (100 → 50 → 25), so one half-life is 32/2 = 16 minutes."
+    },
+    {
+      exam: "JEE Advanced",
+      subject: "Mathematics",
+      chapter: "Complex Numbers",
+      qnum: "Q. 15 of 18 &nbsp;·&nbsp; 4 marks &nbsp;·&nbsp; previous-year pattern",
+      text: "If z is a complex number with |z| = 1 and z ≠ 1, the real part of 1/(1 − z) is:",
+      opts: ["1/2","1","0","−1/2"],
+      correct: 0,
+      working: "Correct answer: A — 1/2. Writing z = e^(iθ) and simplifying 1/(1−z) shows the real part equals 1/2 for every θ ≠ 0."
+    }
+  ]
+};
+
+const SAMPLE_CATS = Object.keys(SAMPLE_BANK);
+let sampleCategory = null;
+let sampleIndex = null;
+let sampleSelected = null;
+let sampleRevealed = false;
+
+function pickRandomCategory(){
+  return SAMPLE_CATS[Math.floor(Math.random() * SAMPLE_CATS.length)];
+}
+
+function pickRandomIndex(cat, excludeIndex){
+  const list = SAMPLE_BANK[cat];
+  if (list.length <= 1) return 0;
+  let idx;
+  do { idx = Math.floor(Math.random() * list.length); } while (idx === excludeIndex);
+  return idx;
+}
+
+function selectSampleCategory(cat){
+  sampleCategory = cat;
+  sampleIndex = pickRandomIndex(cat, null);
+  document.querySelectorAll('#sampleTabs .tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.cat === cat);
+  });
+  renderSample();
+}
+
+function renderSample(){
+  sampleSelected = null;
+  sampleRevealed = false;
+  const q = SAMPLE_BANK[sampleCategory][sampleIndex];
+  document.getElementById('sampleExam').textContent = q.exam;
+  document.getElementById('sampleSubject').textContent = q.subject;
+  document.getElementById('sampleChapter').textContent = q.chapter;
+  document.getElementById('sampleQNum').innerHTML = q.qnum;
+  document.getElementById('sampleQText').textContent = q.text;
+  const optsWrap = document.getElementById('sampleOpts');
+  optsWrap.innerHTML = q.opts.map((opt,i)=>
+    `<div class="opt" data-i="${i}" data-clickable role="button" tabindex="0"><span class="letter">${String.fromCharCode(65+i)}</span><span>${opt}</span></div>`
+  ).join('');
+  optsWrap.querySelectorAll('.opt').forEach(el=>{
+    const select = () => {
+      if (sampleRevealed) return;
+      sampleSelected = parseInt(el.dataset.i,10);
+      optsWrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+      el.classList.add('selected');
+    };
+    el.addEventListener('click', select);
+    el.addEventListener('keydown', (e)=>{ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(); } });
+  });
+  const revealBtn = document.getElementById('revealBtn');
+  revealBtn.disabled = false;
+  revealBtn.textContent = 'Reveal answer key';
+  document.getElementById('revealNote').textContent = 'Pick an option, then reveal the answer key to check yourself.';
+}
+
+function revealSample(){
+  sampleRevealed = true;
+  const q = SAMPLE_BANK[sampleCategory][sampleIndex];
+  const correctOpt = document.querySelector(`#sampleOpts .opt[data-i="${q.correct}"]`);
+  if (correctOpt) correctOpt.classList.add('correct');
+  if (sampleSelected !== null && sampleSelected !== q.correct){
+    const wrongOpt = document.querySelector(`#sampleOpts .opt[data-i="${sampleSelected}"]`);
+    if (wrongOpt) wrongOpt.classList.add('wrong');
+  }
+  let note = q.working;
+  if (sampleSelected === null){
+    note += ' You didn\'t pick an option — try the next one.';
+  } else if (sampleSelected === q.correct){
+    note += ' Nice — that\'s what you picked.';
+  } else {
+    note += ' Your pick is marked in red above.';
+  }
+  document.getElementById('revealNote').textContent = note;
+  const revealBtn = document.getElementById('revealBtn');
+  revealBtn.disabled = true;
+  revealBtn.textContent = 'Answer revealed';
+}
+
+
+
+/* ============================================================
+   Courses catalog
+   ============================================================ */
+const CATALOG = {
+  cbse10: {
+    title: "Class 10 CBSE",
+    desc: "Chapter-wise tests and full pre-board papers for Maths, Science, Social Science and English, set to the CBSE 2026–27 pattern.",
+    tests: [
+      {name:"Maths — Real Numbers &amp; Polynomials", sub:"Chapter test · 40 marks · 90 min", onlinePrice:49, pdfPrice:39, kind:"chapter"},
+      {name:"Maths — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:99, pdfPrice:89, kind:"mock"},
+      {name:"Science — Chemical Reactions &amp; Acids/Bases", sub:"Chapter test · 40 marks · 90 min", onlinePrice:49, pdfPrice:39, kind:"chapter"},
+      {name:"Science — Life Processes &amp; Control", sub:"Chapter test · 40 marks · 90 min", onlinePrice:49, pdfPrice:39, kind:"chapter"},
+      {name:"Science — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:99, pdfPrice:89, kind:"mock"},
+      {name:"Social Science — History: Nationalism in India", sub:"Chapter test · 30 marks · 60 min", onlinePrice:39, pdfPrice:29, kind:"chapter"},
+      {name:"Social Science — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:99, pdfPrice:89, kind:"mock"},
+      {name:"English — Grammar &amp; Writing Skills", sub:"Chapter test · 30 marks · 60 min", onlinePrice:39, pdfPrice:29, kind:"chapter"},
+    ]
+  },
+  cbse12: {
+    title: "Class 12 CBSE",
+    desc: "Board-pattern papers for PCM, PCB and Commerce, marked to the current CBSE step-marking scheme.",
+    tests: [
+      {name:"Physics — Electrostatics &amp; Current Electricity", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
+      {name:"Physics — Full Pre-Board Paper 1", sub:"Full paper · 70 marks · 180 min", onlinePrice:119, pdfPrice:99, kind:"mock"},
+      {name:"Chemistry — Electrochemistry &amp; Chemical Kinetics", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
+      {name:"Maths — Vectors, 3D Geometry &amp; Probability", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
+      {name:"Maths — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:119, pdfPrice:99, kind:"mock"},
+      {name:"Biology — Genetics &amp; Evolution", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
+      {name:"Accountancy — Partnership &amp; Company Accounts", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
+      {name:"Business Studies — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:119, pdfPrice:99, kind:"mock"},
+    ]
+  },
+  neet: {
+    title: "NEET (UG)",
+    desc: "Physics, Chemistry, Botany and Zoology — 180-question full mocks and single-topic tests in the exact NEET pattern.",
+    tests: [
+      {name:"Physics — Mechanics Topic Test", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Chemistry — Organic Chemistry Basics", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Botany — Plant Physiology", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Zoology — Human Physiology", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Full Mock Test 14", sub:"180 Q · 720 marks · 200 min", onlinePrice:149, pdfPrice:129, kind:"mock"},
+      {name:"Full Mock Test 15", sub:"180 Q · 720 marks · 200 min", onlinePrice:149, pdfPrice:129, kind:"mock"},
+      {name:"Previous Year Pattern Set — 2025", sub:"180 Q · 720 marks · 200 min", onlinePrice:129, pdfPrice:109, kind:"mock"},
+    ]
+  },
+  jeemain: {
+    title: "JEE Main",
+    desc: "Single-correct MCQs across Physics, Chemistry and Maths, in the exact JEE Main pattern and marking scheme.",
+    tests: [
+      {name:"Physics — Rotational Motion", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Physics — Current Electricity", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Chemistry — Chemical Bonding", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Chemistry — Solutions", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Maths — Coordinate Geometry", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Maths — Continuity &amp; Differentiability", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"Full Mock Test 9", sub:"90 Q · 300 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
+      {name:"Full Mock Test 10", sub:"90 Q · 300 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
+    ]
+  },
+  jeeadv: {
+    title: "JEE Advanced",
+    desc: "Multi-correct, matrix-match and numeric-answer sets across Physics, Chemistry and Maths, matched to the JEE Advanced format.",
+    tests: [
+      {name:"Physics — Multi-Correct Set 4: Rotational Mechanics", sub:"18 Q · 72 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"chapter"},
+      {name:"Physics — Multi-Correct Set 5: Electrodynamics", sub:"18 Q · 72 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"chapter"},
+      {name:"Chemistry — Numeric Answer Set: Chemical Kinetics", sub:"12 Q · 48 marks · 45 min", onlinePrice:69, pdfPrice:59, kind:"chapter"},
+      {name:"Chemistry — Matrix-Match Set 2: Coordination Compounds", sub:"10 Q · 40 marks · 45 min", onlinePrice:69, pdfPrice:59, kind:"chapter"},
+      {name:"Maths — Numeric Answer Set: Definite Integrals", sub:"12 Q · 48 marks · 45 min", onlinePrice:69, pdfPrice:59, kind:"chapter"},
+      {name:"Full Mock Test 6", sub:"54 Q · 198 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
+      {name:"Full Mock Test 7", sub:"54 Q · 198 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
+    ]
+  }
+};
+
+let currentTrack = 'cbse10';
+
+function money(n){ return "₹" + n; }
+
+function renderTestRows(tests, track){
+  return tests.map((t,i)=>{
+    const cleanName = encodeURIComponent(t.name.replace(/&amp;/g,'&'));
+    return `<div class="test-row">
+      <div class="test-info">
+        <div class="name">${t.name}</div>
+        <div class="sub">${t.sub}</div>
+      </div>
+      <div class="test-formats">
+        <div class="format-chip">
+          <span class="badge">PDF</span>
+          <span class="price">${money(t.pdfPrice)}</span>
+          <a class="btn small outline" href="#checkout?track=${track}&item=${i}&name=${cleanName}&price=${t.pdfPrice}&type=pdf">Buy PDF</a>
+        </div>
+        <div class="format-chip">
+          <span class="badge online">ONLINE</span>
+          <span class="price">${money(t.onlinePrice)}</span>
+          <a class="btn small" href="#checkout?track=${track}&item=${i}&name=${cleanName}&price=${t.onlinePrice}&type=online">Buy &amp; start</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderCatalog(track){
+  currentTrack = track;
+  const data = CATALOG[track];
+  document.getElementById('trackTitle').innerHTML = data.title;
+  document.getElementById('trackDesc').textContent = data.desc;
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.track === track);
+  });
+  const chapterTests = data.tests.filter(t => t.kind === 'chapter');
+  const mockTests = data.tests.filter(t => t.kind === 'mock');
+  document.getElementById('chapterTestList').innerHTML = renderTestRows(chapterTests, track);
+  document.getElementById('mockTestList').innerHTML = renderTestRows(mockTests, track);
+}
+
+document.querySelectorAll('#tabs .tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    window.location.hash = 'courses?track=' + tab.dataset.track;
+  });
+});
+
+/* ============================================================
+   Checkout
+   ============================================================ */
+function renderCheckout(q){
+  document.getElementById('checkoutGrid').style.display = 'grid';
+  document.getElementById('confirmPanel').style.display = 'none';
+  document.getElementById('payBtn').disabled = false;
+  document.getElementById('payBtn').textContent = 'Pay ';
+  const payAmountSpan = document.createElement('span');
+  payAmountSpan.id = 'payAmount';
+  document.getElementById('payBtn').appendChild(payAmountSpan);
+
+  const rawName = q.get('name');
+  const rawPrice = parseInt(q.get('price'), 10);
+  const hasItem = !!rawName && Number.isFinite(rawPrice) && rawPrice > 0;
+  const name = hasItem ? rawName : "NEET (UG) Full Mock Test 14";
+  const price = hasItem ? rawPrice : 149;
+  const type = q.get('type') === 'pdf' ? 'pdf' : 'online';
+
+  const fee = Math.max(2, Math.round(price * 0.02));
+  const total = price + fee;
+
+  document.getElementById('orderTrack').textContent = "1 item in cart";
+  const orderLine = document.getElementById('orderLine');
+  orderLine.innerHTML = '';
+  const row = document.createElement('div');
+  row.className = 'order-row';
+  const left = document.createElement('span');
+  left.append(document.createTextNode(name + ' '));
+  const typeTag = document.createElement('span');
+  typeTag.style.color = 'var(--ink-soft)';
+  typeTag.style.fontSize = '0.82rem';
+  typeTag.textContent = type === 'online' ? '(online test)' : '(PDF download)';
+  left.appendChild(typeTag);
+  const right = document.createElement('span');
+  right.textContent = '₹' + price;
+  row.appendChild(left);
+  row.appendChild(right);
+  orderLine.appendChild(row);
+  document.getElementById('sumSub').textContent = "₹" + price;
+  document.getElementById('sumFee').textContent = "₹" + fee;
+  document.getElementById('sumTotal').textContent = "₹" + total;
+  document.getElementById('payAmount').textContent = "₹" + total;
+
+  window._checkoutMeta = { name, type };
+}
+
+document.getElementById('payUpiBtn').addEventListener('click', ()=>{
+  document.getElementById('payUpiBtn').classList.add('active');
+  document.getElementById('payCardBtn').classList.remove('active');
+  document.getElementById('upiForm').style.display = 'block';
+  document.getElementById('cardForm').style.display = 'none';
+});
+document.getElementById('payCardBtn').addEventListener('click', ()=>{
+  document.getElementById('payCardBtn').classList.add('active');
+  document.getElementById('payUpiBtn').classList.remove('active');
+  document.getElementById('cardForm').style.display = 'block';
+  document.getElementById('upiForm').style.display = 'none';
+});
+
+document.getElementById('payBtn').addEventListener('click', ()=>{
+  const btn = document.getElementById('payBtn');
+  btn.textContent = "Processing…";
+  btn.disabled = true;
+  setTimeout(()=>{
+    document.getElementById('checkoutGrid').style.display = 'none';
+    const cp = document.getElementById('confirmPanel');
+    cp.style.display = 'block';
+    const meta = window._checkoutMeta || { name:'your test', type:'online' };
+    document.getElementById('confirmText').textContent =
+      meta.type === 'online'
+        ? `"${meta.name}" is unlocked in your library and ready to start, timed to its real duration.`
+        : `"${meta.name}" is ready to download from your library as a watermarked PDF, with the answer key attached.`;
+    cp.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 900);
+});
+
+/* ============================================================
+   Test-taking demo — one verified 6-question pool per exam track
+   ============================================================ */
+const TEST_POOLS = {
+  cbse10: [
+    {
+      text: "The sum of the 4th and 8th terms of an AP is 24, and the sum of the 6th and 10th terms is 44. The common difference of the AP is:",
+      opts: ["5","4","6","3"], correct: 0, marks: 3
+    },
+    {
+      text: "A 4 Ω resistor and a 6 Ω resistor are connected in series, and this combination is connected in parallel with a separate 10 Ω resistor. The equivalent resistance of the full combination is:",
+      opts: ["5 Ω","10 Ω","20 Ω","2.5 Ω"], correct: 0, marks: 3
+    },
+    {
+      text: "Mahatma Gandhi withdrew the Non-Cooperation Movement in February 1922 mainly because:",
+      opts: [
+        "A mob set fire to a police station at Chauri Chaura, killing several policemen",
+        "The British government agreed to grant full independence",
+        "The Indian National Congress split into two factions",
+        "World War I had just begun"
+      ], correct: 0, marks: 2
+    },
+    {
+      text: "If the point P(k, 4) lies on the line segment joining A(2, 6) and B(8, 0), the value of k is:",
+      opts: ["4","5","6","3"], correct: 0, marks: 3
+    },
+    {
+      text: "A concave mirror produces a real image 3 times the size of an object placed 10 cm in front of it. The magnitude of the mirror's focal length is:",
+      opts: ["7.5 cm","15 cm","5 cm","10 cm"], correct: 0, marks: 3
+    },
+    {
+      text: "Which organisation supervises the functioning of formal sources of loans in India?",
+      opts: ["Reserve Bank of India","SEBI","NABARD","SIDBI"], correct: 0, marks: 2
+    }
+  ],
+  cbse12: [
+    {
+      text: "In a potentiometer experiment, the balancing length for a cell is 480 cm. On shunting the cell with a resistance of 4 Ω, the balancing length becomes 400 cm. The internal resistance of the cell is:",
+      opts: ["0.8 Ω","1.2 Ω","4.0 Ω","0.4 Ω"], correct: 0, marks: 3
+    },
+    {
+      text: "A cell reaction involving transfer of 2 mol of electrons has a standard EMF of 0.295 V at 300 K. Using log K = nE°/0.0591, the value of log K is closest to:",
+      opts: ["10","5","15","20"], correct: 0, marks: 3
+    },
+    {
+      text: "The absolute maximum value of f(x) = x³ − 3x² + 6 on the interval [−1, 2] is:",
+      opts: ["6","2","8","10"], correct: 0, marks: 3
+    },
+    {
+      text: "In a p-n junction diode under forward bias, the width of the depletion region:",
+      opts: ["Decreases","Increases","Remains unchanged","Becomes infinite"], correct: 0, marks: 2
+    },
+    {
+      text: "The spin-only magnetic moment of the Mn²⁺ ion (d⁵, all electrons unpaired) is closest to:",
+      opts: ["5.9 BM","4.9 BM","3.9 BM","6.9 BM"], correct: 0, marks: 3
+    },
+    {
+      text: "Two dice are thrown simultaneously. The probability of getting a sum of 9 is:",
+      opts: ["1/9","1/6","1/12","5/36"], correct: 0, marks: 2
+    }
+  ],
+  neet: [
+    {
+      text: "A particle moves in a circle of radius R with constant speed v. The magnitude of its average velocity after it has completed an angle of 60° at the centre is:",
+      opts: ["3v/π","v","v/2","2v/π"], correct: 0, marks: 4
+    },
+    {
+      text: "For the reaction 2A + B → C, the rate law is rate = k[A]²[B]⁰. If the concentration of A is doubled and B is tripled, the rate of the reaction:",
+      opts: ["Increases 4 times","Increases 6 times","Increases 8 times","Increases 12 times"], correct: 0, marks: 4
+    },
+    {
+      text: "A colour-blind man marries a woman who is a carrier for colour blindness (X-linked recessive). The proportion of their daughters expected to be colour-blind is:",
+      opts: ["50%","0%","25%","100%"], correct: 0, marks: 4
+    },
+    {
+      text: "The efficiency of a Carnot engine operating between 227°C and 27°C is:",
+      opts: ["40%","60%","25%","50%"], correct: 0, marks: 4
+    },
+    {
+      text: "The pH of a 0.001 M HCl solution is:",
+      opts: ["3","2","4","1"], correct: 0, marks: 4
+    },
+    {
+      text: "In a typical aquatic ecosystem, the pyramid of biomass is usually:",
+      opts: ["Inverted","Upright","Always rectangular","Absent"], correct: 0, marks: 4
+    }
+  ],
+  jeemain: [
+    {
+      text: "A block slides down a frictionless incline of height h and then moves on a rough horizontal surface with coefficient of friction μ, coming to rest after travelling a distance d. The value of μ is:",
+      opts: ["h/d","d/h","2h/d","h/(2d)"], correct: 0, marks: 4
+    },
+    {
+      text: "The number of unpaired electrons in the complex ion [Fe(CN)₆]⁴⁻ is:",
+      opts: ["0","2","4","5"], correct: 0, marks: 4
+    },
+    {
+      text: "If the sum of the coefficients in the expansion of (x + y)ⁿ is 4096, the greatest coefficient in the expansion is:",
+      opts: ["924","792","495","1024"], correct: 0, marks: 4
+    },
+    {
+      text: "The de Broglie wavelength of an electron accelerated through a potential difference of 100 V is closest to:",
+      opts: ["1.2 Å","12 Å","0.12 Å","2.4 Å"], correct: 0, marks: 4
+    },
+    {
+      text: "For an ideal gas undergoing isothermal expansion, the value of ΔU is:",
+      opts: ["Zero","Positive","Negative","Cannot be determined"], correct: 0, marks: 4
+    },
+    {
+      text: "The sum of the first 20 terms of the AP 2, 5, 8, 11, ... is:",
+      opts: ["610","600","620","590"], correct: 0, marks: 4
+    }
+  ],
+  jeeadv: [
+    {
+      text: "A uniform rod of length L, pivoted at one end, is released from rest in a horizontal position. Its angular velocity when it becomes vertical is:",
+      opts: ["√(3g/L)","√(g/L)","√(2g/L)","√(6g/L)"], correct: 0, marks: 4
+    },
+    {
+      text: "For a first-order reaction, 75% of the reaction is completed in 32 minutes. The time required for 50% completion is:",
+      opts: ["16 minutes","8 minutes","32 minutes","24 minutes"], correct: 0, marks: 4
+    },
+    {
+      text: "If z is a complex number with |z| = 1 and z ≠ 1, the real part of 1/(1 − z) is:",
+      opts: ["1/2","1","0","−1/2"], correct: 0, marks: 4
+    },
+    {
+      text: "Two point charges +q and −q are separated by a distance 2a. At a point on the perpendicular bisector, far from the charges (r ≫ a), the electric field varies with distance r as:",
+      opts: ["1/r³","1/r²","1/r","1/r⁴"], correct: 0, marks: 4
+    },
+    {
+      text: "For a reaction, ΔH = −30 kJ/mol and ΔS = −100 J/(mol·K) at 300 K. At this temperature the reaction is:",
+      opts: ["At equilibrium (ΔG = 0)","Spontaneous at all temperatures","Non-spontaneous at all temperatures","Spontaneous only above 300 K"], correct: 0, marks: 4
+    },
+    {
+      text: "If a, b, c are unit vectors such that a + b + c = 0, the value of a·b + b·c + c·a is:",
+      opts: ["−3/2","3/2","−3","0"], correct: 0, marks: 4
+    }
+  ]
+};
+
+const TRACK_LABELS = {
+  cbse10: "Class 10 CBSE",
+  cbse12: "Class 12 CBSE",
+  neet: "NEET (UG)",
+  jeemain: "JEE Main",
+  jeeadv: "JEE Advanced"
+};
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let testTrack = null;
+let QUESTIONS = [];
+let tCurrent = 0;
+let tAnswers = [];
+let tTimeLeft = 5 * 60;
+let tTimerInterval = null;
+let tSubmitted = false;
+
+function selectTestTrack(track){
+  testTrack = track;
+  document.querySelectorAll('#testTabs .tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.track === track);
+  });
+  document.getElementById('resultBuyLink').href = '#courses?track=' + track;
+  resetTest();
+}
+
+function resetTest(){
+  QUESTIONS = shuffleArray(TEST_POOLS[testTrack]).slice(0, 6);
+  tCurrent = 0;
+  tAnswers = new Array(QUESTIONS.length).fill(null);
+  tTimeLeft = 5 * 60;
+  tSubmitted = false;
+  clearInterval(tTimerInterval);
+  document.getElementById('testShell').style.display = 'block';
+  document.getElementById('resultShell').style.display = 'none';
+  document.getElementById('timer').classList.remove('done');
+  document.getElementById('timer').textContent = formatTime(tTimeLeft);
+  renderQuestion();
+  renderNav();
+  tTimerInterval = setInterval(()=>{
+    tTimeLeft--;
+    document.getElementById('timer').textContent = formatTime(Math.max(tTimeLeft,0));
+    if (tTimeLeft <= 0){
+      clearInterval(tTimerInterval);
+      submitTest();
+    }
+  }, 1000);
+}
+
+function renderQuestion(){
+  const q = QUESTIONS[tCurrent];
+  document.getElementById('qLabel').textContent = `${TRACK_LABELS[testTrack]} — Question ${tCurrent+1} of ${QUESTIONS.length}`;
+  document.getElementById('progressFill').style.width = ((tCurrent+1)/QUESTIONS.length*100) + '%';
+  const qcard = document.getElementById('qcard');
+  qcard.innerHTML = `
+    <div class="qhead">
+      <span>FREE SAMPLE · ${TRACK_LABELS[testTrack].toUpperCase()}</span>
+      <span>Q. ${tCurrent+1} of ${QUESTIONS.length} &nbsp;·&nbsp; ${q.marks} marks</span>
+    </div>
+    <p class="qtext">${q.text}</p>
+    <div class="opts">
+      ${q.opts.map((opt,i)=>`
+        <div class="opt" data-i="${i}" style="cursor:pointer;${tAnswers[tCurrent]===i ? 'border-color:var(--ink);background:var(--paper-alt);' : ''}">
+          <span class="letter" style="${tAnswers[tCurrent]===i ? 'background:var(--ink);border-color:var(--ink);color:#fff;' : ''}">${String.fromCharCode(65+i)}</span>
+          <span>${opt}</span>
+        </div>`).join('')}
+    </div>`;
+  qcard.querySelectorAll('.opt').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      tAnswers[tCurrent] = parseInt(el.dataset.i,10);
+      renderQuestion();
+      renderNav();
+    });
+  });
+  document.getElementById('prevBtn').disabled = tCurrent === 0;
+}
+
+function renderNav(){
+  const nav = document.getElementById('qnav');
+  nav.innerHTML = QUESTIONS.map((_,i)=>{
+    let cls = '';
+    if (i === tCurrent) cls += ' current';
+    if (tAnswers[i] !== null) cls += ' answered';
+    return `<button class="${cls.trim()}" data-i="${i}" type="button">${i+1}</button>`;
+  }).join('');
+  nav.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ tCurrent = parseInt(btn.dataset.i,10); renderQuestion(); renderNav(); });
+  });
+}
+
+document.getElementById('prevBtn').addEventListener('click', ()=>{
+  if (tCurrent > 0){ tCurrent--; renderQuestion(); renderNav(); }
+});
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  if (tCurrent < QUESTIONS.length-1){ tCurrent++; renderQuestion(); renderNav(); }
+});
+
+function formatTime(s){
+  const m = Math.floor(s/60).toString().padStart(2,'0');
+  const sec = (s%60).toString().padStart(2,'0');
+  return `${m}:${sec}`;
+}
+
+function submitTest(){
+  if (tSubmitted) return;
+  tSubmitted = true;
+  clearInterval(tTimerInterval);
+  document.getElementById('timer').textContent = formatTime(Math.max(tTimeLeft,0));
+  document.getElementById('timer').classList.add('done');
+
+  let correct = 0, wrong = 0, skip = 0, score = 0;
+  QUESTIONS.forEach((q,i)=>{
+    if (tAnswers[i] === null){ skip++; }
+    else if (tAnswers[i] === q.correct){ correct++; score += q.marks; }
+    else { wrong++; score -= 1; }
+  });
+  const maxScore = QUESTIONS.reduce((a,q)=>a+q.marks,0);
+
+  document.getElementById('testShell').style.display = 'none';
+  const rs = document.getElementById('resultShell');
+  rs.style.display = 'block';
+  document.getElementById('resultHeading').textContent = `${TRACK_LABELS[testTrack]} section complete`;
+  document.getElementById('scoreOut').textContent = `${Math.max(score,0)} / ${maxScore}`;
+  document.getElementById('scorePct').textContent = `${Math.round(Math.max(score,0)/maxScore*100)}% scored on this sample section`;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rSkip').textContent = skip;
+  rs.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  if (confirm('Submit the test? You cannot change your answers after this.')) submitTest();
+});
+</script>
+</body>
+</html>
