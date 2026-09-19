@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Master Testing Agency — Practice tests for CBSE, NEET &amp; JEE Main/Advanced</title>
 <meta name="description" content="PDF and online practice tests for Class 10 CBSE, Class 12 CBSE, NEET (UG), JEE Main and JEE Advanced — kept fully separate. Built like the real exam.">
-nav.primary.mobile-open
-   a{padding:10px 4px;border-bottom:1px solid var(--line-soft);}
-}
-  <style>
+<style>
 /* ============================================================
    Master Testing Agency — design tokens
    Visual language: the printed exam paper / admit card / OMR sheet
@@ -415,23 +412,17 @@ footer{border-top:1px solid var(--ink);margin-top:40px;padding:40px 0 30px;}
 @media (max-width:1080px){
   .track-grid{grid-template-columns:repeat(3,1fr);}
 }
-<script>
-(function(){
-  var css = "";@media (max-width:960px){.topbar .wrap{height:auto;min-height:64px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap;row-gap:8px;}.brand{font-size:0.98rem;}.brand small{display:none;}.nav-actions .btn.outline.small{display:none;}nav.primary.mobile-open{display:flex;flex-direction:column;width:100%;order:10;padding-top:10px;border-top:1px solid var(--line-soft);gap:2px;}nav.primary.mobile-open a{padding:10px 4px;border-bottom:1px solid var(--line-soft);}}"; var styleEl = document.createElement('style'); styleEl.textContent = css; document.head.appendChild(styleEl); document.addEventListener('DOMContentLoaded', function(){ var toggle = document.getElementById('navToggle'); var nav = document.querySelector('nav.primary'); if (toggle && nav){ toggle.addEventListener('click', function(){ nav.classList.toggle('mobile-open'); }); } }); })(); </script>
-  var styleEl = document.createElement('style');
-  styleEl.textContent = css;
-  document.head.appendChild(styleEl);
-  document.addEventListener('DOMContentLoaded', function(){
-    var toggle = document.getElementById('navToggle');
-    var nav = document.querySelector('nav.primary');
-    if (toggle && nav){
-      toggle.addEventListener('click', function(){
-        nav.classList.toggle('mobile-open');
-      });
-    }
-  });
-})();
-</script>
+@media (max-width:960px){
+  nav.primary{display:none;}
+  .nav-toggle{display:flex;}
+  .track-grid{grid-template-columns:repeat(2,1fr);}
+  .price-grid,.result-grid{grid-template-columns:1fr;}
+  .stat-row{grid-template-columns:1fr;}
+  .stat-row .stat{border-right:none;border-bottom:1px solid var(--line);}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .checkout-grid,.dash-grid{grid-template-columns:1fr;}
+  .instructions li{flex-direction:column;gap:6px;}
+}
 @media (max-width:640px){
   .track-grid{grid-template-columns:1fr;}
   .hero-main{padding:32px 22px 28px;}
@@ -442,8 +433,7 @@ footer{border-top:1px solid var(--ink);margin-top:40px;padding:40px 0 30px;}
 }
 </style>
 </head>
-
-  <body>
+<body>
 
 <header class="topbar">
   <div class="wrap">
@@ -1954,15 +1944,5 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
   if (confirm('Submit the test? You cannot change your answers after this.')) submitTest();
 });
 </script>
-<script>
-(function(){
-  var toggle = document.getElementById('navToggle');
-  var nav = document.querySelector('nav.primary');
-  if (toggle && nav){
-    toggle.addEventListener('click', function(){
-      nav.classList.toggle('mobile-open');
-    });
-  }
-})();
-</script></body>
+</body>
 </html>
