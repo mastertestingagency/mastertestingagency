@@ -1520,7 +1520,7 @@ const CATALOG = {
     title: "JEE Main",
     desc: "Single-correct MCQs across Physics, Chemistry and Maths, in the exact JEE Main pattern and marking scheme.",
     tests: [
-      {name:"Physics — Rotational Motion", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
+      {name:"JEE Main Physics — Full Syllabus Test, Set A", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter", realLink:"https://rzp.io/rzp/BJIDmMW", pdfOnly:true},
       {name:"Physics — Current Electricity", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
       {name:"Chemistry — Chemical Bonding", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
       {name:"Chemistry — Solutions", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
@@ -1552,6 +1552,13 @@ function money(n){ return "₹" + n; }
 function renderTestRows(tests, track){
   return tests.map((t,i)=>{
     const cleanName = encodeURIComponent(t.name.replace(/&amp;/g,'&'));
+    const pdfHref = t.realLink ? t.realLink : `#checkout?track=${track}&item=${i}&name=${cleanName}&price=${t.pdfPrice}&type=pdf`;
+    const pdfTarget = t.realLink ? ' target="_blank" rel="noopener"' : '';
+    const onlineChip = t.pdfOnly ? '' : `<div class="format-chip">
+          <span class="badge online">ONLINE</span>
+          <span class="price">${money(t.onlinePrice)}</span>
+          <a class="btn small" href="#checkout?track=${track}&item=${i}&name=${cleanName}&price=${t.onlinePrice}&type=online">Buy &amp; start</a>
+        </div>`;
     return `<div class="test-row">
       <div class="test-info">
         <div class="name">${t.name}</div>
@@ -1561,13 +1568,9 @@ function renderTestRows(tests, track){
         <div class="format-chip">
           <span class="badge">PDF</span>
           <span class="price">${money(t.pdfPrice)}</span>
-          <a class="btn small outline" href="#checkout?track=${track}&item=${i}&name=${cleanName}&price=${t.pdfPrice}&type=pdf">Buy PDF</a>
+          <a class="btn small outline" href="${pdfHref}"${pdfTarget}>Buy PDF</a>
         </div>
-        <div class="format-chip">
-          <span class="badge online">ONLINE</span>
-          <span class="price">${money(t.onlinePrice)}</span>
-          <a class="btn small" href="#checkout?track=${track}&item=${i}&name=${cleanName}&price=${t.onlinePrice}&type=online">Buy &amp; start</a>
-        </div>
+        ${onlineChip}
       </div>
     </div>`;
   }).join('');
