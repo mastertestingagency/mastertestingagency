@@ -489,9 +489,9 @@ footer{border-top:1px solid var(--ink);margin-top:40px;padding:40px 0 30px;}
         </div>
       </div>
       <div class="stat-row">
-        <div class="stat"><div class="num">1</div><div class="label">Real test live today</div></div>
-        <div class="stat"><div class="num">₹69</div><div class="label">JEE Main Physics, Set A (PDF)</div></div>
-        <div class="stat"><div class="num">60 min</div><div class="label">Full JEE Main syllabus, timed</div></div>
+        <div class="stat"><div class="num">120</div><div class="label">Tests live across four exam tracks</div></div>
+        <div class="stat"><div class="num">₹39</div><div class="label">Starting price per test (PDF)</div></div>
+        <div class="stat"><div class="num">10</div><div class="label">Sets per test — A through J</div></div>
       </div>
     </div>
 
@@ -507,14 +507,14 @@ footer{border-top:1px solid var(--ink);margin-top:40px;padding:40px 0 30px;}
         <button type="button" class="track-card" data-goto-track="cbse10">
           <span class="tag">BOARD</span>
           <h3>Class 10 CBSE</h3>
-          <p>Maths, Science, Social Science, English — chapter tests and full pre-boards.</p>
-          <div class="meta"><span>Coming soon</span></div>
+          <p>Maths — chapter tests and full pre-boards.</p>
+          <div class="meta"><span>10 tests</span><b>from ₹39</b></div>
         </button>
         <button type="button" class="track-card" data-goto-track="cbse12">
           <span class="tag">BOARD</span>
           <h3>Class 12 CBSE</h3>
-          <p>PCM, PCB and Commerce streams — board-pattern papers with step marking.</p>
-          <div class="meta"><span>Coming soon</span></div>
+          <p>PCM stream — Physics, Chemistry and Maths, board-pattern papers with step marking.</p>
+          <div class="meta"><span>30 tests</span><b>from ₹49</b></div>
         </button>
         <button type="button" class="track-card" data-goto-track="neet">
           <span class="tag">MEDICAL</span>
@@ -526,13 +526,13 @@ footer{border-top:1px solid var(--ink);margin-top:40px;padding:40px 0 30px;}
           <span class="tag">ENGINEERING</span>
           <h3>JEE Main</h3>
           <p>Single-correct MCQs across Physics, Chemistry and Maths, in the Main pattern and marking scheme.</p>
-          <div class="meta"><span>1 test live</span><b>from ₹69</b></div>
+          <div class="meta"><span>40 tests</span><b>from ₹69</b></div>
         </button>
         <button type="button" class="track-card" data-goto-track="jeeadv">
           <span class="tag">ENGINEERING</span>
           <h3>JEE Advanced</h3>
           <p>Multi-correct, matrix-match and numeric-answer sets, matched to the Advanced format.</p>
-          <div class="meta"><span>Coming soon</span></div>
+          <div class="meta"><span>40 tests</span><b>from ₹79</b></div>
         </button>
       </div>
     </section>
@@ -701,7 +701,7 @@ footer{border-top:1px solid var(--ink);margin-top:40px;padding:40px 0 30px;}
       <button type="button" class="tab" data-track="jeeadv">JEE Advanced</button>
     </div>
 
-    <section style="padding-top:24px;">
+    <section style="padding-top:24px;" id="chapterSection">
       <div class="section-head" style="border:none;padding-bottom:0;margin-bottom:14px;">
         <div><div class="kicker">SECTION A</div><h2 style="font-size:1.25rem;">Chapter tests</h2></div>
         <p class="desc">One chapter or topic at a time — for building up before a full mock.</p>
@@ -1478,71 +1478,154 @@ function revealSample(){
 const CATALOG = {
   cbse10: {
     title: "Class 10 CBSE",
-    desc: "Chapter-wise tests and full pre-board papers for Maths, Science, Social Science and English, set to the CBSE 2026–27 pattern.",
+    desc: "Full syllabus papers for Maths, set to the CBSE 2026–27 pattern.",
     tests: [
-      {name:"Maths — Real Numbers &amp; Polynomials", sub:"Chapter test · 40 marks · 90 min", onlinePrice:49, pdfPrice:39, kind:"chapter"},
-      {name:"Maths — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:99, pdfPrice:89, kind:"mock"},
-      {name:"Science — Chemical Reactions &amp; Acids/Bases", sub:"Chapter test · 40 marks · 90 min", onlinePrice:49, pdfPrice:39, kind:"chapter"},
-      {name:"Science — Life Processes &amp; Control", sub:"Chapter test · 40 marks · 90 min", onlinePrice:49, pdfPrice:39, kind:"chapter"},
-      {name:"Science — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:99, pdfPrice:89, kind:"mock"},
-      {name:"Social Science — History: Nationalism in India", sub:"Chapter test · 30 marks · 60 min", onlinePrice:39, pdfPrice:29, kind:"chapter"},
-      {name:"Social Science — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:99, pdfPrice:89, kind:"mock"},
-      {name:"English — Grammar &amp; Writing Skills", sub:"Chapter test · 30 marks · 60 min", onlinePrice:39, pdfPrice:29, kind:"chapter"},
-    ]
+{name:"Class 10 CBSE Maths — Set A", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set B", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set C", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set D", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set E", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set F", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set G", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set H", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set I", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+      {name:"Class 10 CBSE Maths — Set J", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:49, pdfPrice:39, kind:"mock"},
+        ]
   },
   cbse12: {
     title: "Class 12 CBSE",
-    desc: "Board-pattern papers for PCM, PCB and Commerce, marked to the current CBSE step-marking scheme.",
+    desc: "Full syllabus PCM papers — Physics, Chemistry and Maths — marked to the current CBSE step-marking scheme.",
     tests: [
-      {name:"Physics — Electrostatics &amp; Current Electricity", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
-      {name:"Physics — Full Pre-Board Paper 1", sub:"Full paper · 70 marks · 180 min", onlinePrice:119, pdfPrice:99, kind:"mock"},
-      {name:"Chemistry — Electrochemistry &amp; Chemical Kinetics", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
-      {name:"Maths — Vectors, 3D Geometry &amp; Probability", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
-      {name:"Maths — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:119, pdfPrice:99, kind:"mock"},
-      {name:"Biology — Genetics &amp; Evolution", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
-      {name:"Accountancy — Partnership &amp; Company Accounts", sub:"Chapter test · 35 marks · 90 min", onlinePrice:59, pdfPrice:49, kind:"chapter"},
-      {name:"Business Studies — Full Pre-Board Paper 1", sub:"Full paper · 80 marks · 180 min", onlinePrice:119, pdfPrice:99, kind:"mock"},
-    ]
+{name:"Class 12 CBSE Maths — Set A", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set B", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set C", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set D", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set E", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set F", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set G", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set H", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set I", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Maths — Set J", sub:"Full syllabus · 80 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set A", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set B", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set C", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set D", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set E", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set F", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set G", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set H", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set I", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Chemistry — Set J", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set A", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set B", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set C", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set D", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set E", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set F", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set G", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set H", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set I", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+      {name:"Class 12 CBSE Physics — Set J", sub:"Full syllabus · 70 marks · 3 hours", onlinePrice:59, pdfPrice:49, kind:"mock"},
+        ]
   },
   neet: {
     title: "NEET (UG)",
     desc: "Physics, Chemistry, Botany and Zoology — 180-question full mocks and single-topic tests in the exact NEET pattern.",
     tests: [
-      {name:"Physics — Mechanics Topic Test", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Chemistry — Organic Chemistry Basics", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Botany — Plant Physiology", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Zoology — Human Physiology", sub:"45 Q · 180 marks · 50 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Full Mock Test 14", sub:"180 Q · 720 marks · 200 min", onlinePrice:149, pdfPrice:129, kind:"mock"},
-      {name:"Full Mock Test 15", sub:"180 Q · 720 marks · 200 min", onlinePrice:149, pdfPrice:129, kind:"mock"},
-      {name:"Previous Year Pattern Set — 2025", sub:"180 Q · 720 marks · 200 min", onlinePrice:129, pdfPrice:109, kind:"mock"},
-    ]
+      // No tests published yet.
+        ]
   },
   jeemain: {
     title: "JEE Main",
     desc: "Single-correct MCQs across Physics, Chemistry and Maths, in the exact JEE Main pattern and marking scheme.",
     tests: [
-      {name:"JEE Main Physics — Full Syllabus Test, Set A", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Physics — Current Electricity", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Chemistry — Chemical Bonding", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Chemistry — Solutions", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Maths — Coordinate Geometry", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Maths — Continuity &amp; Differentiability", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"chapter"},
-      {name:"Full Mock Test 9", sub:"90 Q · 300 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
-      {name:"Full Mock Test 10", sub:"90 Q · 300 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
-    ]
+{name:"JEE Main Physics — Set A", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set B", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set C", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set D", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set E", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set F", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set G", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set H", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set I", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Physics — Set J", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set A", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set B", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set C", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set D", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set E", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set F", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set G", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set H", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set I", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Chemistry — Set J", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set A", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set B", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set C", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set D", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set E", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set F", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set G", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set H", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set I", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Maths — Set J", sub:"25 Q · 100 marks · 60 min", onlinePrice:79, pdfPrice:69, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set A", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set B", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set C", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set D", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set E", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set F", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set G", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set H", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set I", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+      {name:"JEE Main Full Mock (Physics+Chem+Maths) — Set J", sub:"75 Q · 300 marks · 180 min", onlinePrice:169, pdfPrice:149, kind:"mock"},
+        ]
   },
   jeeadv: {
     title: "JEE Advanced",
     desc: "Multi-correct, matrix-match and numeric-answer sets across Physics, Chemistry and Maths, matched to the JEE Advanced format.",
     tests: [
-      {name:"Physics — Multi-Correct Set 4: Rotational Mechanics", sub:"18 Q · 72 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"chapter"},
-      {name:"Physics — Multi-Correct Set 5: Electrodynamics", sub:"18 Q · 72 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"chapter"},
-      {name:"Chemistry — Numeric Answer Set: Chemical Kinetics", sub:"12 Q · 48 marks · 45 min", onlinePrice:69, pdfPrice:59, kind:"chapter"},
-      {name:"Chemistry — Matrix-Match Set 2: Coordination Compounds", sub:"10 Q · 40 marks · 45 min", onlinePrice:69, pdfPrice:59, kind:"chapter"},
-      {name:"Maths — Numeric Answer Set: Definite Integrals", sub:"12 Q · 48 marks · 45 min", onlinePrice:69, pdfPrice:59, kind:"chapter"},
-      {name:"Full Mock Test 6", sub:"54 Q · 198 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
-      {name:"Full Mock Test 7", sub:"54 Q · 198 marks · 180 min", onlinePrice:159, pdfPrice:139, kind:"mock"},
-    ]
+{name:"JEE Advanced Physics — Set A", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set B", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set C", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set D", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set E", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set F", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set G", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set H", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set I", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Physics — Set J", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set A", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set B", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set C", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set D", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set E", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set F", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set G", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set H", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set I", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Chemistry — Set J", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set A", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set B", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set C", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set D", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set E", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set F", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set G", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set H", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set I", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Maths — Set J", sub:"20 Q · 65 marks · 60 min", onlinePrice:89, pdfPrice:79, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set A", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set B", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set C", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set D", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set E", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set F", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set G", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set H", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set I", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+      {name:"JEE Advanced Full Mock (Physics+Chem+Maths) — Set J", sub:"60 Q · 195 marks · 180 min", onlinePrice:179, pdfPrice:159, kind:"mock"},
+        ]
   }
 };
 
@@ -1587,8 +1670,11 @@ function renderCatalog(track){
   });
   const chapterTests = data.tests.filter(t => t.kind === 'chapter');
   const mockTests = data.tests.filter(t => t.kind === 'mock');
+  document.getElementById('chapterSection').style.display = chapterTests.length ? '' : 'none';
   document.getElementById('chapterTestList').innerHTML = renderTestRows(chapterTests, track);
-  document.getElementById('mockTestList').innerHTML = renderTestRows(mockTests, track);
+  document.getElementById('mockTestList').innerHTML = mockTests.length
+    ? renderTestRows(mockTests, track)
+    : '<p style="color:var(--ink-soft);padding:20px 0;">No tests published yet for this track — check back soon.</p>';
 }
 
 document.querySelectorAll('#tabs .tab').forEach(tab=>{
